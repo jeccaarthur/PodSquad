@@ -5,6 +5,8 @@ namespace PodSquad.Models
 {
     public class Post
     {
+        // TODO: add validation to fields
+
         private List<Reply> replies = new List<Reply>();
 
         public int PostID { get; set; }

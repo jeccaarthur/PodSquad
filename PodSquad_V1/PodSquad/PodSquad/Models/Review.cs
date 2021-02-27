@@ -5,6 +5,8 @@ namespace PodSquad.Models
 {
     public class Review
     {
+        // TODO: add validation to fields
+
         private List<Comment> comments = new List<Comment>();
 
         public int ReviewID { get; set; }
