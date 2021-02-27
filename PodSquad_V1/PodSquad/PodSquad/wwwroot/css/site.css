@@ -184,3 +184,14 @@ nav > ul {
     width: 90%;
     margin: auto;
 }
+
+
+/* ----------- FORMS ----------- */
+
+.form-container {
+    width: 70%;
+}
+
+.form-content {
+    padding: 15px;
+}
