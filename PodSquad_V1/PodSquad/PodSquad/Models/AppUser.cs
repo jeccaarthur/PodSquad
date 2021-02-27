@@ -1,13 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Identity;
 
 namespace PodSquad.Models
 {
-    public class AppUser
+    public class AppUser : IdentityUser
     {
-        // TODO: inherit from identity user class after adding identity service
+        [Required(ErrorMessage = "First Name is required")]
+        [StringLength(60, MinimumLength = 1)]
+        [RegularExpression(@"^[a-zA-Z]{1,60}$", ErrorMessage = "User's name must be alphabetic characters only")]
+        public string FirstName { get; set; }
 
-        public string Name { get; set; }
-        public List<String> RoleNames { get; set; }
+        [Required(ErrorMessage = "Last Name is required")]
+        [StringLength(60, MinimumLength = 1)]
+        [RegularExpression(@"^[a-zA-Z]{1,60}$", ErrorMessage = "User's name must be alphabetic characters only")]
+        public string LastName { get; set; }
+
+        [NotMapped]
+        public IList<String> RoleNames { get; set; }
     }
 }
