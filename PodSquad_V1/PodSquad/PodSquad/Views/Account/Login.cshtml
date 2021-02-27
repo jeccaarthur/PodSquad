@@ -1,5 +1,35 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    ViewData["Title"] = "Login";
 }
+
+<h1 class="display-4">Login</h1>
+
+
+<div class="form-container">
+    <div class="form-content">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <form method="post" asp-action="Login">
+            @*asp-route-returnUrl="@Model.ReturnUrl"*@
+
+            <div class="form-group row">
+                <label for="username">Username:</label>
+                <input id="username" class="form-control" placeholder="Your username" />
+            </div>
+
+            <div class="form-group row">
+                <label for="password">Password:</label>
+                <input id="password" type="password" class="form-control" placeholder="Your password" />
+            </div>
+
+            <div class="form-check row">
+                <input id="rememberMe" type="checkbox" class="form-check-input" />
+                <label class="form-check-label" for="rememberMe">Remember Me</label>
+            </div>
+
+            <br />
+            <button type="submit" class="btn btn-light">Login</button>
+
+        </form>
+    </div>
+</div>
