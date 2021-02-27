@@ -2,26 +2,26 @@
 for details on configuring this project to bundle and minify static web assets. */
 
 a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
 }
 
 /* Provide sufficient contrast against white background */
 a {
-  color: #0366d6;
+    color: #0366d6;
 }
 
 .btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
 
 /* Sticky footer styles
@@ -29,6 +29,7 @@ a {
 html {
     font-size: 14px;
 }
+
 @media (min-width: 768px) {
     html {
         font-size: 16px;
@@ -36,19 +37,20 @@ html {
 }
 
 .border-top {
-  border-top: 1px solid #e5e5e5;
+    border-top: 1px solid #e5e5e5;
 }
+
 .border-bottom {
-  border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
 }
 
 .box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
 button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
+    font-size: 1rem;
+    line-height: inherit;
 }
 
 /* Sticky footer styles
@@ -56,7 +58,7 @@ button.accept-policy {
 html, body {
     position: relative;
     min-height: 100%;
-/*    font-family: 'Poppins', sans-serif;*/
+    /*    font-family: 'Poppins', sans-serif;*/
 }
 
 .banner-container {
@@ -88,7 +90,6 @@ html, body {
     background: rgb(12,28,49);
     background: linear-gradient(25deg, rgba(12,28,49,1) 32%, rgba(24,49,80,1) 75%, rgba(23,61,83,1) 100%);
     backdrop-filter: blur(5px);
-
 }
 
 .main-content {
@@ -152,16 +153,15 @@ hr {
     color: #0c1c31;
 }
 
-    nav > ul {
-        list-style-type: none;
-        margin-left: 100px;
-        margin-right: 100px;
-    }
+nav > ul {
+    list-style-type: none;
+    margin-left: 100px;
+    margin-right: 100px;
+}
 
     nav > ul > li {
         float: left;
         padding: 10px;
-
     }
 
 
@@ -180,4 +180,3 @@ hr {
     width: 90%;
     margin: auto;
 }
-
