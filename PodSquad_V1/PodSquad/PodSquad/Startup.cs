@@ -8,6 +8,10 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Runtime.InteropServices;
+using Microsoft.EntityFrameworkCore;
+using PodSquad.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace PodSquad
 {
@@ -24,6 +28,24 @@ namespace PodSquad
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddRazorPages().AddRazorRuntimeCompilation();
+
+
+
+            // add service for DbContext with SQLite - this is dependency injection
+            // add if statement to support azure db
+            //if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            //{
+                //services.AddDbContext<PodDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:AzureSQLServerConnection"]));
+            //}
+
+            //else
+            //{
+                services.AddDbContext<PodDbContext>(options => options.UseSqlite(Configuration["ConnectionStrings:SQLiteConnection"]));
+            //}
+
+            // add identity service
+            services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<PodDbContext>().AddDefaultTokenProviders();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,6 +66,7 @@ namespace PodSquad
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
