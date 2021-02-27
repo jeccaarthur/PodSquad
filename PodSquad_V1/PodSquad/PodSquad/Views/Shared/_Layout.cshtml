@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - PodSquad</title>
 
+    @* for bootstrap glyphicons *@
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap" rel="stylesheet">
 
@@ -12,7 +17,7 @@
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
-    
+
     <div class="main-container">
 
         <div class="banner-container">
@@ -21,7 +26,7 @@
 
 
         <div class="main-content">
-           
+
 
             @* HEADER *@
             <header>
@@ -31,12 +36,26 @@
                         PodSquad
                     </div>
 
+
+
                     @* TODO: if statement to display register/login buttons for guests *@
                     @* and profile icon for site members *@
 
+                    @*if (user is not logged in)*@
+                    @*{*@
                     @* register and login buttons *@
-                    <button type="button" class="header-button btn btn-outline-light">Register</button>
-                    <button type="button" class="header-button btn btn-outline-light">Login</button>
+                    @*<button type="button" class="header-button btn btn-outline-light">Register</button>*@
+                    @*<button type="button" class="header-button btn btn-outline-light">Login</button>*@
+                    @*}*@
+                    @*else if (user is logged in)*@
+                    @*{*@
+
+                <button type="button" class="header-button btn btn-outline-light">
+                    <span class="glyphicon glyphicon-user"></span>
+                    &nbsp;&nbsp;
+                    User Name
+                </button>
+                    @*}*@
 
 
                     @* navigation *@
@@ -79,10 +98,10 @@
 
         </div>
     </div>
-            <script src="~/lib/jquery/dist/jquery.min.js"></script>
-            <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-            <script src="~/js/site.js" asp-append-version="true"></script>
-            @RenderSection("Scripts", required: false)
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
 
 </body>
 </html>
