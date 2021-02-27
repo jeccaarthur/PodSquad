@@ -144,6 +144,10 @@ hr {
     padding-left: 20px;
 }
 
+    .logout-button {
+        display: inline-block;
+    }
+
 .navigation {
     margin: 0 auto;
     width: 100%;
