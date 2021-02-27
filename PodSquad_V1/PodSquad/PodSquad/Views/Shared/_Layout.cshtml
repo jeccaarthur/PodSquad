@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - PodSquad</title>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    
+    <div class="main-container">
+
+        <div class="banner-container">
+            <div class="banner"></div>
+        </div>
+
+
+        <div class="main-content">
+           
+
+            @* HEADER *@
+            <header>
+                <div class="header-container">
+                    @* logo *@
+                    <div class="logo">
+                        PodSquad
+                    </div>
+
+                    @* TODO: if statement to display register/login buttons for guests *@
+                    @* and profile icon for site members *@
+
+                    @* register and login buttons *@
+                    <button type="button" class="header-button btn btn-outline-light">Register</button>
+                    <button type="button" class="header-button btn btn-outline-light">Login</button>
+
+
+                    @* navigation *@
+                    <nav class="text-center">
+                        <div class="navigation row">
+                            <div class="col">Home</div>
+                            <div class="col">Link1</div>
+                            <div class="col">Link2</div>
+                            <div class="col">Link3</div>
+                        </div>
+                    </nav>
+
+                </div>
+            </header>
+
+
+
+            @* VIEW LAYOUT *@
+            <div class="page-container">
+                <div class="content-container">
+                    <div class="content">
+
+                        <main role="main" class="pb-3">
+                            @RenderBody()
+                        </main>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+            @* FOOTER *@
+            <footer class="text-muted">
+                <hr />
+                <div class="container">
+                    &copy; 2021 - PodSquad - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                </div>
+            </footer>
+
+        </div>
+    </div>
+            <script src="~/lib/jquery/dist/jquery.min.js"></script>
+            <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="~/js/site.js" asp-append-version="true"></script>
+            @RenderSection("Scripts", required: false)
+
+</body>
+</html>

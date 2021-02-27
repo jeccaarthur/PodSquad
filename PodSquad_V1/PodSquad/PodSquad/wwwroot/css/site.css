@@ -1,0 +1,183 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+a.navbar-brand {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+
+/* Provide sufficient contrast against white background */
+a {
+  color: #0366d6;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    font-size: 14px;
+}
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.border-top {
+  border-top: 1px solid #e5e5e5;
+}
+.border-bottom {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+  font-size: 1rem;
+  line-height: inherit;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html, body {
+    position: relative;
+    min-height: 100%;
+/*    font-family: 'Poppins', sans-serif;*/
+}
+
+.banner-container {
+    position: absolute;
+    height: auto;
+    width: 75%;
+    margin: auto;
+    right: 0;
+    left: 0;
+    top: 13%;
+    bottom: 60px;
+    z-index: -1;
+}
+
+.banner {
+    background-color: rgba(68, 68, 68, 0.1);
+    width: 100%;
+    margin: 0 auto;
+    z-index: -1;
+    height: 100%;
+}
+
+.main-container {
+    min-height: 100vh; /* will cover the 100% of viewport */
+    overflow: hidden;
+    display: block;
+    position: relative;
+    padding-bottom: 60px; /* height of footer */
+    background: rgb(12,28,49);
+    background: linear-gradient(25deg, rgba(12,28,49,1) 32%, rgba(24,49,80,1) 75%, rgba(23,61,83,1) 100%);
+    backdrop-filter: blur(5px);
+
+}
+
+.main-content {
+    margin-top: 60px;
+    margin-left: 120px;
+    margin-right: 120px;
+    color: #f0f0f0;
+}
+
+footer {
+    position: fixed !important;
+    bottom: 0;
+    width: 100%;
+    margin-left: -120px;
+    margin-right: -120px;
+    white-space: nowrap;
+    line-height: 60px; /* Vertically center the text there */
+}
+
+hr {
+    width: 90% !important;
+    background-color: #CEE2FF !important;
+    margin: 0 auto;
+    /* fade */
+    border: 0;
+    height: 2px;
+    background: #9CF;
+    background-image: linear-gradient(to right, #0c1c31, #fefefe, #0c1c31);
+}
+
+
+/* ----------- HEADER ----------- */
+
+.header-container {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.logo {
+    margin-left: 15px;
+    font-size: 2.5em;
+}
+
+/* TODO: vertically align buttons */
+.header-button {
+    margin-right: 15px;
+    float: right;
+    bottom: 40px;
+    position: relative;
+    border-radius: 30px;
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
+.navigation {
+    margin: 0 auto;
+    width: 100%;
+    line-height: 50px;
+    border-radius: 30px;
+    background-color: #f0f0f0;
+    color: #0c1c31;
+}
+
+    nav > ul {
+        list-style-type: none;
+        margin-left: 100px;
+        margin-right: 100px;
+    }
+
+    nav > ul > li {
+        float: left;
+        padding: 10px;
+
+    }
+
+
+/* ----------- PAGE CONTENT ----------- */
+
+.page-container {
+    margin: 30px;
+}
+
+.content-container {
+    padding: 20px 40px 40px 40px;
+    border-radius: 15px;
+}
+
+.content {
+    width: 90%;
+    margin: auto;
+}
+
