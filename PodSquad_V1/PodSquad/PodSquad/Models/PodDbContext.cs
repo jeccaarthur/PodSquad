@@ -1,11 +1,12 @@
 ﻿using System;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace PodSquad.Models
 {
-    public class DbContext
+    public class PodDbContext : IdentityDbContext
     {
-        public DbContext(DbContextOptions<DbContext> options) : base(options) { }
+        public PodDbContext(DbContextOptions<PodDbContext> options) : base(options) { }
 
         public DbSet<Podcast> Podcasts { get; set; }
         public DbSet<Genre> Genres { get; set; }
