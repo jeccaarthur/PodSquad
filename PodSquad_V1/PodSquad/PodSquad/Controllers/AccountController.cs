@@ -3,24 +3,61 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using PodSquad.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace PodSquad.Controllers
 {
     public class AccountController : Controller
     {
-        // GET: /<controller>/
-        public IActionResult Index()
+        private UserManager<AppUser> userManager;
+        private SignInManager<AppUser> signInManager;
+
+        public AccountController(UserManager<AppUser> userMngr, SignInManager<AppUser> signInMngr)
         {
-            return View();
+            userManager = userMngr;
+            signInManager = signInMngr;
         }
 
-        public IActionResult Login()
+        [HttpGet]
+        public IActionResult Login(string returnUrl)
         {
-            return View();
+            LoginVM loginVM = new LoginVM
+            {
+                ReturnUrl = returnUrl
+            };
+
+            return View(loginVM);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginVM loginVM)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await signInManager.PasswordSignInAsync(
+                    loginVM.Username, loginVM.Password, isPersistent: loginVM.RememberMe,
+                    lockoutOnFailure: false);
+
+                if (result.Succeeded)
+                {
+                    if (!string.IsNullOrEmpty(loginVM.ReturnUrl) && Url.IsLocalUrl(loginVM.ReturnUrl))
+                    {
+                        return Redirect(loginVM.ReturnUrl);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+            }
+
+            ModelState.AddModelError("", "Invalid username or password.");
+
+            return View(loginVM);
+        }
+
+        [HttpGet]
         public IActionResult CreateAccount()
         {
             return View();
