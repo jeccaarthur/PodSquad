@@ -91,5 +91,19 @@ namespace PodSquad.Controllers
 
             return View(createAccountVM);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> LogOut()
+        {
+            await signInManager.SignOutAsync();
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public ViewResult AccessDenied()
+        {
+            return View();
+        }
     }
 }
