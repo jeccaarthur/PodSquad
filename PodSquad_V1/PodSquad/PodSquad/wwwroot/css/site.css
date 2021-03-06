@@ -195,3 +195,7 @@ nav > ul {
 .form-content {
     padding: 15px;
 }
+
+.text-danger {
+    font-weight: 400;
+}
