@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PodSquad.Models
 {
-    public class RegisterVM
+    public class CreateAccountVM
     {
         [Required(ErrorMessage = "Please enter your first name.")]
         [StringLength(255)]

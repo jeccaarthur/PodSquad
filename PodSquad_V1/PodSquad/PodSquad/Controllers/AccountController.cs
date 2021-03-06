@@ -62,5 +62,8 @@ namespace PodSquad.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateAccount()
     }
 }
