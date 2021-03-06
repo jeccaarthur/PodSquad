@@ -30,6 +30,9 @@
 
             @* HEADER *@
             <header>
+                @using Microsoft.AspNetCore.Identity
+                @inject SignInManager<AppUser> signInManager
+
                 <div class="header-container">
                     @* logo *@
                     <div class="logo">
@@ -37,25 +40,21 @@
                     </div>
 
 
-
-                    @* TODO: if statement to display register/login buttons for guests *@
-                    @* and profile icon for site members *@
-
-                    @*if (user is not logged in)*@
-                    @*{*@
-                    @* register and login buttons *@
-                    @*<button type="button" class="header-button btn btn-outline-light">Register</button>*@
-                    @*<button type="button" class="header-button btn btn-outline-light">Login</button>*@
-                    @*}*@
-                    @*else if (user is logged in)*@
-                    @*{*@
-
-                <button type="button" class="logout-button header-button btn btn-outline-light">
-                    <span class="glyphicon glyphicon-user"></span>
-                    &nbsp;
-                    User Name
-                </button>
-                    @*}*@
+                    @if (signInManager.IsSignedIn(User))
+                    {
+                        @* display user name and icon to logged in users *@
+                        <button type="button" class="logout-button header-button btn btn-outline-light">
+                            <span class="glyphicon glyphicon-user"></span>
+                            &nbsp;
+                            User Name
+                        </button>
+                    }
+                    else
+                    {
+                        @* display register and login buttons to users not logged in *@
+                        <a class="header-button btn btn-outline-light" asp-controller="Account" asp-action="Login">Login</a>
+                        <a class="header-button btn btn-outline-light" asp-controller="Account" asp-action="CreateAccount">Register</a>
+                    }
 
 
                     @* navigation *@
