@@ -64,6 +64,32 @@ namespace PodSquad.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateAccount()
+        public async Task<IActionResult> CreateAccount(CreateAccountVM createAccountVM)
+        {
+            if (ModelState.IsValid)
+            {
+                AppUser user = new AppUser
+                {
+                    UserName = createAccountVM.Username
+                };
+
+                var result = await userManager.CreateAsync(user, createAccountVM.Password);
+
+                if (result.Succeeded)
+                {
+                    await signInManager.SignInAsync(user, isPersistent: false);
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError("", error.Description);
+                    }
+                }
+            }
+
+            return View(createAccountVM);
+        }
     }
 }
