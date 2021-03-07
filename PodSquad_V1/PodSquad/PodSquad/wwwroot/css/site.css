@@ -12,6 +12,10 @@ a {
     color: #0366d6;
 }
 
+.btn {
+    border-radius: 30px;
+}
+
 .btn-primary {
     color: #fff;
     background-color: #1b6ec2;
@@ -199,3 +203,83 @@ nav > ul {
 .text-danger {
     font-weight: 400;
 }
+
+
+/* ----------- ABOUT PODCAST ----------- */
+
+.pod-container {
+    width: 100%;
+    margin: 0 auto;
+    border-radius: 4px;
+    background-color: rgba(108, 122, 137, 0.1);
+    -webkit-box-shadow: -1px 1px 15px 2px rgba(0,0,0,0.51);
+    box-shadow: -1px 1px 15px 2px rgba(0,0,0,0.51);
+    /*
+    background: rgb(14,90,93);
+    background: radial-gradient(circle, rgba(14,90,93,1) 13%, rgba(14,76,85,1) 62%, rgba(14,54,71,1) 100%);
+    -webkit-box-shadow: -1px 1px 35px 5px rgba(20,20,20,0.51); 
+    box-shadow: -1px 1px 35px 5px rgba(20,20,20,0.51);
+
+    */
+}
+
+    .pod-content {
+        padding: 20px;
+    }
+
+        .pod-art-container {
+            padding: 10px;
+        }
+
+            .pod-art-content {
+                width: 325px;
+                height: 325px;
+                margin: 0 auto;
+            }
+
+                .pod-art {
+                    vertical-align: middle;
+                    border-style: none;
+                    border-radius: 50px;
+                    box-shadow: -1px 1px 15px 2px rgba(0,0,0,0.51);
+                }
+
+        .pod-info-container {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+            .pod-info {
+                position: relative;
+                padding: 10px;
+            }
+
+                .pod-buttons {
+                    margin-top: 30px;
+                }
+
+                    .pod-button {
+                        color: #0e3e4c !important;
+                        margin-right: 10px;
+                        padding-right: 15px;
+                        padding-left: 15px;
+                    }
+
+        .reviews {
+            width: 100%;
+            margin-top: 50px;
+        }
+
+.review-container {
+    padding: 20px;
+    border-radius: 40px;
+    background: rgb(14,90,93);
+    background: linear-gradient(51deg, rgba(14,90,93,1) 5%, rgba(14,76,85,1) 25%, rgba(14,68,80,1) 43%, rgba(14,62,76,1) 61%, rgba(14,54,71,1) 81%);
+    box-shadow: -1px 1px 35px 5px rgba(20,20,20,0.51);
+}
+
+                .review-content {
+                    padding: 10px;
+                }
