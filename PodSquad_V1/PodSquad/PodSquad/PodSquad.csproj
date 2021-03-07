@@ -19,5 +19,6 @@
   <ItemGroup>
     <Folder Include="Views\Account\" />
     <Folder Include="Views\Podcast\" />
+    <Folder Include="Views\Forum\" />
   </ItemGroup>
 </Project>
