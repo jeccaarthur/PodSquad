@@ -20,6 +20,9 @@ namespace PodSquad.Models
         {
             base.OnModelCreating(builder);  // get around primary key error on IdentityUser class
 
+            builder.Entity<Podcast>()
+                .HasAlternateKey(p => p.Name);
+
             builder.Entity<Genre>()
                 .HasAlternateKey(g => g.Name);
         }
