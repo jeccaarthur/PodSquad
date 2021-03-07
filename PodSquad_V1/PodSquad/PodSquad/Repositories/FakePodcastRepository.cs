@@ -8,6 +8,7 @@ namespace PodSquad.Repositories
     public class FakePodcastRepository : IPodcastRepository
     {
         private List<Podcast> podcasts = new List<Podcast>();
+        private List<Genre> genres = new List<Genre>();
         private List<Review> reviews = new List<Review>();
 
 
@@ -25,12 +26,21 @@ namespace PodSquad.Repositories
             }
         }
 
-        // add a new podcast
+        // add a new podcast if it doesn't already exist
         public void AddPod(Podcast podcast)
         {
-            // simulate auto-incremented primary key and add podcast to list
-            podcast.PodcastID = podcasts.Count;
-            podcasts.Add(podcast);
+            Podcast existingPod = podcasts.Find(p => p.Name == podcast.Name);
+
+            if (existingPod == null)
+            {
+                // simulate auto-incremented primary key and add podcast to list
+                podcast.PodcastID = podcasts.Count;
+                podcasts.Add(podcast);
+            }
+            else
+            {
+                throw new Exception("Podcast already exists");
+            }
         }
 
         // retrieve podcast with matching id
@@ -44,6 +54,43 @@ namespace PodSquad.Repositories
 
 
 
+
+
+
+        #region GENRE METHODS
+
+        public IQueryable<Genre> Genres
+        {
+            get
+            {
+                return genres.AsQueryable<Genre>();
+            }
+        }
+
+        public void AddGenre(Genre genre)
+        {
+            Genre existingGenre = genres.Find(g => g.Name == genre.Name);
+
+            if (existingGenre == null)
+            {
+                // simulate auto-incremented primary key and add genre to list
+                genre.GenreID = genres.Count;
+                genres.Add(genre);
+            }
+            else
+            {
+                Console.WriteLine("Genre already exists");
+            }
+        }
+
+        // retrieve all podcasts with specified genre id
+        public List<Podcast> GetPodsByGenre(int id)
+        {
+            List<Podcast> pods = podcasts.Where(p => p.Genre.GenreID == id).ToList();
+            return pods;
+        }
+
+        #endregion
 
 
 

@@ -54,7 +54,36 @@ namespace PodSquad.Repositories
 
 
 
+        #region GENRE METHODS
 
+        public IQueryable<Genre> Genres
+        {
+            get
+            {
+                return context.Genres;
+            }
+        }
+
+        public void AddGenre(Genre genre)
+        {
+            Genre existingGenre = context.Genres.First(g => g.Name == genre.Name);
+
+            if (existingGenre == null)
+            {
+                context.Genres.Add(genre);
+                context.SaveChanges();
+            }
+        }
+
+        // retrieve all podcasts with specified genre id
+        public List<Podcast> GetPodsByGenre(int id)
+        {
+            List<Podcast> pods = context.Podcasts.Where(p => p.Genre.GenreID == id).ToList();
+            return pods;
+        }
+
+
+        #endregion
 
 
 

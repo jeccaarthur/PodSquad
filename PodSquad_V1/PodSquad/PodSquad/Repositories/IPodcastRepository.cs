@@ -11,9 +11,13 @@ namespace PodSquad.Repositories
         IQueryable<Podcast> Podcasts { get; }
         void AddPod(Podcast podcast);
         Podcast GetPodByID(int id);
-        //List<Podcast> GetPodsByGenre(string genre);
         //List<Podcast> GetSavedPods(AppUser user);
         //void DeletePod(int id);
+
+        // genre methods
+        IQueryable<Genre> Genres { get; }
+        void AddGenre(Genre genre);
+        List<Podcast> GetPodsByGenre(int id);
 
         // review methods
         IQueryable<Review> Reviews { get; }

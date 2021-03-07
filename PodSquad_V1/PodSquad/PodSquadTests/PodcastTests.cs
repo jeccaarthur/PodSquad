@@ -4,7 +4,7 @@ using PodSquad.Models;
 using PodSquad.Repositories;
 using PodSquad.Controllers;
 using System;
-
+using System.Collections.Generic;
 
 namespace PodSquadTests
 {
@@ -13,8 +13,14 @@ namespace PodSquadTests
         FakePodcastRepository fakeRepo;
         PodcastController controller;
 
+        List<Podcast> podcasts;
+        List<Genre> genres;
+        List<Review> reviews;
+
         Podcast pod1;
         Podcast pod2;
+        Podcast pod3;
+        Podcast pod4;
 
         Review review1;
         Review review2;
@@ -46,9 +52,8 @@ namespace PodSquadTests
             pod1 = new Podcast
             {
                 Name = "Test Podcast",
-                Genre =
+                Genre = new Genre
                 {
-                //    GenreID = 1,
                     Name = "Genre 1",
                     Description = "Genre description 1"
                 },
@@ -60,11 +65,10 @@ namespace PodSquadTests
             pod2 = new Podcast
             {
                 Name = "Test Podcast 2",
-                Genre =
+                Genre = new Genre
                 {
-                //    GenreID = 2,
                     Name = "Genre 2",
-                    Description = "Genre description 1"
+                    Description = "Genre description 2"
                 },
                 Network = "Test Network 2",
                 HostName = "Test Host 2",
@@ -73,16 +77,28 @@ namespace PodSquadTests
 
             pod3 = new Podcast
             {
-                Name = "Test Podcast 2",
-                Genre =
+                Name = "Test Podcast 3",
+                Genre = new Genre
                 {
-                //    GenreID = 2,
                     Name = "Genre 1",
                     Description = "Genre description 1"
                 },
-                Network = "Test Network 2",
-                HostName = "Test Host 2",
-                Description = "Podcast description 2"
+                Network = "Test Network 3",
+                HostName = "Test Host 3",
+                Description = "Podcast description 3"
+            };
+
+            pod4 = new Podcast
+            {
+                Name = "Test Podcast 4",
+                Genre = new Genre
+                {
+                    Name = "Genre 2",
+                    Description = "Genre description 2"
+                },
+                Network = "Duplicate Test Nework",
+                HostName = "Duplicate Test Host",
+                Description = "Duplicate test description"
             };
 
             review1 = new Review
@@ -101,6 +117,10 @@ namespace PodSquadTests
         }
 
 
+
+        #region PODCAST TESTS
+
+
         [Test]
         public void TestAddPod()
         {
@@ -114,9 +134,33 @@ namespace PodSquadTests
             Assert.IsNotNull(pod);
             Assert.AreEqual(0, pod.PodcastID);
             Assert.AreEqual("Test Podcast", pod.Name);
+            Assert.AreEqual("Genre 1", pod.Genre.Name);
             Assert.AreEqual("Test Network", pod.Network);
             Assert.AreEqual("Test Host", pod.HostName);
             Assert.AreEqual("Podcast description 1", pod.Description);
+        }
+
+        [Test]      // should not be able to add pods with same name
+        public void TestAddDuplicatePod()
+        {
+            // use controller method to add podcast to repo
+            controller.AddPod(pod3);
+
+            // retrieve podcast from repo and confirm name
+            Podcast pod = fakeRepo.Podcasts.First(p => p.PodcastID == pod3.PodcastID);
+            Assert.IsNotNull(pod);
+            Assert.AreEqual(pod3.Name, pod.Name);
+
+            // try to add a podcast with the same name - this should fail
+            try
+            {
+                controller.AddPod(pod4);
+                Assert.Fail();
+            }
+            catch (Exception ex)
+            {
+                Assert.IsTrue(ex.Message.Contains("Podcast already exists"));
+            }
         }
 
         [Test]
@@ -137,5 +181,68 @@ namespace PodSquadTests
             Assert.AreEqual(pod1.HostName, pod.HostName);
             Assert.AreEqual(pod1.Description, pod.Description);
         }
+
+        #endregion
+
+
+
+        #region GENRE TESTS
+
+        [Test]
+        public void TestAddGenre()
+        {
+            // use controller method to add podcast to repo
+            controller.AddPod(pod1);
+
+            // retrieve genre from repo
+            Genre genre = fakeRepo.Genres.ToList()[0];
+
+            // check values
+            Assert.IsNotNull(genre);
+            Assert.AreEqual(0, genre.GenreID);
+            Assert.AreEqual("Genre 1", genre.Name);
+
+            // retrieve podcast that was saved to db
+            Podcast pod = fakeRepo.GetPodByID(pod1.PodcastID);
+
+            // confirm genre saved to podcast properly
+            Assert.AreEqual(0, pod.Genre.GenreID);
+            Assert.AreEqual(pod1.Genre.Name, pod.Genre.Name);
+        }
+
+        [Test]      // should not add duplicate rows
+        public void TestAddDuplicateGenre()
+        {
+            // use controller method to add podcasts with same genres
+            controller.AddPod(pod1);    // genre 1
+            controller.AddPod(pod2);    // genre 2
+            controller.AddPod(pod3);    // genre 1
+            controller.AddPod(pod4);    // genre 2
+
+            // retrieve list of genres from repo
+            genres = fakeRepo.Genres.ToList();
+
+            // count total number of genres - should be 2
+            Assert.AreEqual(2, genres.Count);
+            Assert.AreEqual("Genre 1", genres[0].Name);
+            Assert.AreEqual("Genre 2", genres[1].Name);
+        }
+
+        /*
+        [Test]
+        public void TestGetPodsByGenre()
+        {
+            // add podcasts to repo
+            controller.AddPod(pod1);
+            controller.AddPod(pod2);
+            controller.AddPod(pod3);
+            controller.AddPod(pod4);
+
+            // retrieve podcasts with genre ids 0 and 1
+
+        }
+        */
+
+        #endregion
     }
 }
