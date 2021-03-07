@@ -12,6 +12,7 @@ using System.Runtime.InteropServices;
 using Microsoft.EntityFrameworkCore;
 using PodSquad.Models;
 using Microsoft.AspNetCore.Identity;
+using PodSquad.Repositories;
 
 namespace PodSquad
 {
@@ -30,22 +31,23 @@ namespace PodSquad
             services.AddControllersWithViews();
             services.AddRazorPages().AddRazorRuntimeCompilation();
 
+            // if statement to support azure db
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                services.AddDbContext<PodContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:AzureSQLServerConnection"]));
+            }
 
+            else
+            {
+                services.AddDbContext<PodContext>(options => options.UseSqlite(Configuration["ConnectionStrings:SQLiteConnection"]));
+            }
 
-            // add service for DbContext with SQLite - this is dependency injection
-            // add if statement to support azure db
-            //if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            //{
-                //services.AddDbContext<PodDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:AzureSQLServerConnection"]));
-            //}
+            // identity service
+            services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<PodContext>().AddDefaultTokenProviders();
 
-            //else
-            //{
-                services.AddDbContext<PodDbContext>(options => options.UseSqlite(Configuration["ConnectionStrings:SQLiteConnection"]));
-            //}
-
-            // add identity service
-            services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<PodDbContext>().AddDefaultTokenProviders();
+            // inject repository into controllers
+            services.AddTransient<IPodcastRepository, PodcastRepository>();
+            services.AddTransient<IForumRepository, ForumRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
