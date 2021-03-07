@@ -20,5 +20,6 @@
     <Folder Include="Views\Account\" />
     <Folder Include="Views\Podcast\" />
     <Folder Include="Views\Forum\" />
+    <Folder Include="Repositories\" />
   </ItemGroup>
 </Project>
