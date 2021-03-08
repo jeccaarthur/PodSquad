@@ -20,9 +20,5 @@ namespace PodSquad.Models
         public int Rating { get; set; }
         public string ReviewText { get; set; }
         //public List<Comment> Comments { get { return comments; } }
-
-        [ForeignKey("PostID")]
-        public Post Post { get; set; }
-
     }
 }
