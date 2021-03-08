@@ -12,10 +12,6 @@ namespace PodSquad.Repositories
         private List<Review> reviews = new List<Review>();
 
 
-
-
-
-
         #region PODCAST METHODS
 
         public IQueryable<Podcast> Podcasts
@@ -50,6 +46,13 @@ namespace PodSquad.Repositories
             return podcast;
         }
 
+        // retrieve podcast with matching name
+        public Podcast GetPodByName(string name)
+        {
+            Podcast podcast = podcasts.Find(pod => pod.Name == name);
+            return podcast;
+        }
+
         #endregion
 
 
@@ -80,10 +83,11 @@ namespace PodSquad.Repositories
             else
             {
                 Console.WriteLine("Genre already exists");
+                genre.GenreID = existingGenre.GenreID;
             }
         }
 
-        // retrieve all podcasts with specified genre id
+        // retrieve all podcasts with specified genre name
         public List<Podcast> GetPodsByGenre(int id)
         {
             List<Podcast> pods = podcasts.Where(p => p.Genre.GenreID == id).ToList();

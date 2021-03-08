@@ -182,6 +182,25 @@ namespace PodSquadTests
             Assert.AreEqual(pod1.Description, pod.Description);
         }
 
+        [Test]
+        public void TestGetPodByName()
+        {
+            // add podcasts to repo
+            controller.AddPod(pod1);
+            controller.AddPod(pod2);
+
+            // retrieve podcast from repo using id
+            Podcast pod = fakeRepo.Podcasts.First(p => p.Name == pod1.Name);
+
+            // check values
+            Assert.IsNotNull(pod);
+            Assert.AreEqual(pod1.PodcastID, pod.PodcastID);
+            Assert.AreEqual(pod1.Name, pod.Name);
+            Assert.AreEqual(pod1.Network, pod.Network);
+            Assert.AreEqual(pod1.HostName, pod.HostName);
+            Assert.AreEqual(pod1.Description, pod.Description);
+        }
+
         #endregion
 
 
@@ -228,20 +247,27 @@ namespace PodSquadTests
             Assert.AreEqual("Genre 2", genres[1].Name);
         }
 
-        /*
         [Test]
         public void TestGetPodsByGenre()
         {
             // add podcasts to repo
-            controller.AddPod(pod1);
-            controller.AddPod(pod2);
-            controller.AddPod(pod3);
-            controller.AddPod(pod4);
+            controller.AddPod(pod1);    // genre 1
+            controller.AddPod(pod2);    // genre 2
+            controller.AddPod(pod3);    // genre 1
+            controller.AddPod(pod4);    // genre 2
 
-            // retrieve podcasts with genre ids 0 and 1
+            // retrieve podcasts with genre id 0 and count - should be 2
+            podcasts = fakeRepo.GetPodsByGenre(0);
+            Assert.AreEqual(2, podcasts.Count);
 
+            // clear list
+            podcasts.Clear();
+
+            // retrieve podcasts with genre id 1 and count - should be 2
+            podcasts = fakeRepo.GetPodsByGenre(1);
+            Assert.AreEqual(2, podcasts.Count);
         }
-        */
+
 
         #endregion
     }

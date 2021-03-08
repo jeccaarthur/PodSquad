@@ -49,6 +49,12 @@ namespace PodSquad.Repositories
             return podcast;
         }
 
+        // retrieve podcast with matching name
+        public Podcast GetPodByName(string name)
+        {
+            Podcast podcast = context.Podcasts.First(pod => pod.Name == name);
+            return podcast;
+        }
 
         #endregion
 
@@ -73,9 +79,15 @@ namespace PodSquad.Repositories
                 context.Genres.Add(genre);
                 context.SaveChanges();
             }
+            // TODO: confirm the correct genreID is being assigned to the podcast if genre already exists
+            // (working in tests, confirm on live)
+            else
+            {
+                genre.GenreID = existingGenre.GenreID;
+            }
         }
 
-        // retrieve all podcasts with specified genre id
+        // retrieve all podcasts with specified genre name
         public List<Podcast> GetPodsByGenre(int id)
         {
             List<Podcast> pods = context.Podcasts.Where(p => p.Genre.GenreID == id).ToList();

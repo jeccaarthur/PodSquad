@@ -11,6 +11,7 @@ namespace PodSquad.Repositories
         IQueryable<Podcast> Podcasts { get; }
         void AddPod(Podcast podcast);
         Podcast GetPodByID(int id);
+        Podcast GetPodByName(string name);
         //List<Podcast> GetSavedPods(AppUser user);
         //void DeletePod(int id);
 
