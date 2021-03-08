@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PodSquad.Models;
 
 namespace PodSquad.Migrations
 {
-    [DbContext(typeof(PodDbContext))]
-    partial class PodDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(PodContext))]
+    [Migration("20210307202742_UniqueGenre")]
+    partial class UniqueGenre
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -214,33 +216,6 @@ namespace PodSquad.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("PodSquad.Models.Comment", b =>
-                {
-                    b.Property<int>("CommentID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("CommentText")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("CommenterId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("ReviewID")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("CommentID");
-
-                    b.HasIndex("CommenterId");
-
-                    b.HasIndex("ReviewID");
-
-                    b.ToTable("Comments");
-                });
-
             modelBuilder.Entity("PodSquad.Models.Genre", b =>
                 {
                     b.Property<int>("GenreID")
@@ -251,9 +226,12 @@ namespace PodSquad.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("GenreID");
+
+                    b.HasAlternateKey("Name");
 
                     b.ToTable("Genres");
                 });
@@ -263,6 +241,9 @@ namespace PodSquad.Migrations
                     b.Property<int>("PodcastID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("TEXT");
 
                     b.Property<int?>("GenreID")
                         .HasColumnType("INTEGER");
@@ -323,9 +304,14 @@ namespace PodSquad.Migrations
                     b.Property<string>("ReplyText")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("ResponderId")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("ReplyID");
 
                     b.HasIndex("PostID");
+
+                    b.HasIndex("ResponderId");
 
                     b.ToTable("Replies");
                 });
@@ -428,17 +414,6 @@ namespace PodSquad.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("PodSquad.Models.Comment", b =>
-                {
-                    b.HasOne("PodSquad.Models.AppUser", "Commenter")
-                        .WithMany()
-                        .HasForeignKey("CommenterId");
-
-                    b.HasOne("PodSquad.Models.Review", null)
-                        .WithMany("Comments")
-                        .HasForeignKey("ReviewID");
-                });
-
             modelBuilder.Entity("PodSquad.Models.Podcast", b =>
                 {
                     b.HasOne("PodSquad.Models.Genre", "Genre")
@@ -455,9 +430,13 @@ namespace PodSquad.Migrations
 
             modelBuilder.Entity("PodSquad.Models.Reply", b =>
                 {
-                    b.HasOne("PodSquad.Models.Post", null)
+                    b.HasOne("PodSquad.Models.Post", "Post")
                         .WithMany("Replies")
                         .HasForeignKey("PostID");
+
+                    b.HasOne("PodSquad.Models.AppUser", "Responder")
+                        .WithMany()
+                        .HasForeignKey("ResponderId");
                 });
 
             modelBuilder.Entity("PodSquad.Models.Review", b =>
