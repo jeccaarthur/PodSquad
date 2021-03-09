@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using PodSquad.Repositories;
 
 namespace PodSquad.Models
 {
@@ -13,6 +14,7 @@ namespace PodSquad.Models
         public string Network { get; set; }
         public string HostName { get; set; }
         public string Description { get; set; }
+        public string ImageURL { get; set; }
         public List<Review> Reviews { get { return reviews; } }
 
         // TODO: add average rating property with logic to calculate
