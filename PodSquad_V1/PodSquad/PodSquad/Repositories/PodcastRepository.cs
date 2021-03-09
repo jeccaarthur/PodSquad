@@ -56,6 +56,13 @@ namespace PodSquad.Repositories
             return podcast;
         }
 
+        // update an existing podcast - used to add reviews
+        public void UpdatePod(Podcast podcast)
+        {
+            context.Podcasts.Update(podcast);
+            context.SaveChanges();
+        }
+
         #endregion
 
 
@@ -108,10 +115,25 @@ namespace PodSquad.Repositories
             get
             {
                 return context.Reviews
-                    .Include(review => review.Podcast)
                     .Include(review => review.Reviewer);
             }
         }
+
+        // adds a new review
+        public void AddReview(Review review)
+        {
+            // save review to db
+            context.Reviews.Add(review);
+            context.SaveChanges();
+        }
+
+        //public List<Review> GetReviews(int podcastID)
+        //{
+        //    List<Review> reviewList = context.Reviews.Where(r => r.Podcast.PodcastID == podcastID)
+        //        .OrderByDescending(d => d.Date).ToList();
+
+        //    return reviewList;
+        //}
 
 
         #endregion

@@ -14,7 +14,7 @@ namespace PodSquad.Models
         //private List<Comment> comments = new List<Comment>();
 
         public int ReviewID { get; set; }
-        public Podcast Podcast { get; set; }
+        //public Podcast Podcast { get; set; }
         public AppUser Reviewer { get; set; }
         public DateTime Date { get; set; }
         public int Rating { get; set; }

@@ -5,6 +5,7 @@ using PodSquad.Repositories;
 using PodSquad.Controllers;
 using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity;
 
 namespace PodSquadTests
 {
@@ -12,6 +13,7 @@ namespace PodSquadTests
     {
         FakePodcastRepository fakeRepo;
         PodcastController controller;
+        UserManager<AppUser> userManager;
 
         List<Podcast> podcasts;
         List<Genre> genres;
@@ -33,7 +35,7 @@ namespace PodSquadTests
         public void Setup()
         {
             fakeRepo = new FakePodcastRepository();
-            controller = new PodcastController(fakeRepo);
+            controller = new PodcastController(fakeRepo, userManager);
 
             user1 = new AppUser
             {
@@ -199,6 +201,37 @@ namespace PodSquadTests
             Assert.AreEqual(pod1.Network, pod.Network);
             Assert.AreEqual(pod1.HostName, pod.HostName);
             Assert.AreEqual(pod1.Description, pod.Description);
+        }
+
+        [Test]
+        public void TestAddReview()
+        {
+            // add podcast to repo and retrieve it to get its id
+            controller.AddPod(pod1);
+            Podcast pod = fakeRepo.Podcasts.First(p => p.Name == pod1.Name);
+
+            // confirm pod has no reviews associated to it
+            Assert.IsTrue(pod.Reviews.Count == 0);
+
+            // create a reviewVM object and assign the podcast id to it, and assign other review values
+            ReviewVM reviewVM = new ReviewVM();
+            reviewVM.PodcastID = pod.PodcastID;
+            reviewVM.Rating = review1.Rating;
+            reviewVM.ReviewText = review1.ReviewText;
+
+            // call controller method to add a review and pass reviewVM to it
+            controller.Review(reviewVM);
+
+            // confirm review was saved to the podcast
+            Podcast updatedPod = fakeRepo.GetPodByID(pod.PodcastID);
+            Assert.IsTrue(updatedPod.Reviews.Count == 1);
+            Assert.AreEqual(reviewVM.Rating, updatedPod.Reviews[0].Rating);
+            Assert.AreEqual(reviewVM.ReviewText, updatedPod.Reviews[0].ReviewText);
+
+
+
+
+
         }
 
         #endregion

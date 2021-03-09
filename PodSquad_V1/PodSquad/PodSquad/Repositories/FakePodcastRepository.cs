@@ -53,6 +53,24 @@ namespace PodSquad.Repositories
             return podcast;
         }
 
+        //// update an existing podcast - used to add reviews
+        //public void UpdatePod(Podcast podcast)
+        //{
+        //    // retrieve podcast from list
+        //    Podcast pod = podcasts.Find(p => p.PodcastID == podcast.PodcastID);
+
+        //    // update its properties
+        //    //pod.Name = podcast.Name;
+        //    //pod.Network = podcast.Network;
+        //    //pod.HostName = podcast.HostName;
+        //    //pod.Description = podcast.Description;
+
+        //    // pull most recent review out of podcast and add it to pod reviews
+        //    // TODO: might need to sort reviews by date to identify most recent
+        //    Review review = podcast.Reviews.Last();
+        //    pod.Reviews.Add(review);
+        //}
+
         #endregion
 
 
@@ -109,6 +127,19 @@ namespace PodSquad.Repositories
             }
         }
 
+        // adds a review to reviews
+        public void AddReview(Review review)
+        {
+            reviews.Add(review);
+        }
+
+        //public List<Review> GetReviews(int podcastID)
+        //{
+        //    List<Review> reviewList = Reviews.Where(r => r. == podcastID)
+        //        //.OrderByDescending(d => d.Date).ToList();
+
+        //    return reviewList;
+        //}
 
         #endregion
 

@@ -13,7 +13,9 @@ namespace PodSquad.Repositories
         Podcast GetPodByID(int id);
         Podcast GetPodByName(string name);
         //List<Podcast> GetSavedPods(AppUser user);
+        //void UpdatePod(Podcast podcast);
         //void DeletePod(int id);
+        //int GetAverageRating();
 
         // genre methods
         IQueryable<Genre> Genres { get; }
@@ -22,8 +24,8 @@ namespace PodSquad.Repositories
 
         // review methods
         IQueryable<Review> Reviews { get; }
-        //void AddReview(Review review);
-        //List<Review> GetReviewsByPodID(int id);
+        void AddReview(Review review);
+        //List<Review> GetReviews(int podcastID);
         //void EditReview(Review review);
         //void DeleteReview(int id);
     }
