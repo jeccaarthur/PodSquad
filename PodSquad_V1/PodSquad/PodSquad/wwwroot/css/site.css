@@ -204,6 +204,11 @@ nav > ul {
     font-weight: 400;
 }
 
+form button {
+    width: 50%;
+    
+}
+
 
 /* ----------- ABOUT PODCAST ----------- */
 
@@ -258,22 +263,37 @@ nav > ul {
 
                 .pod-buttons {
                     margin-top: 30px;
+                    display: flex;
+                    justify-content: space-evenly;
                 }
 
                     .pod-button {
                         color: #0e3e4c !important;
                         margin-right: 10px;
+                        margin-bottom: 10px;
                         padding-right: 15px;
                         padding-left: 15px;
                     }
 
-        .reviews {
+
+        .reviews-list-container {
             width: 100%;
             margin-top: 50px;
         }
 
+
+        .reviews {
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+        }
+
 .review-container {
-    padding: 20px;
+    width: 275px;
+    padding: 10px;
+    margin: 10px;
     border-radius: 40px;
     background: rgb(14,90,93);
     background: linear-gradient(51deg, rgba(14,90,93,1) 5%, rgba(14,76,85,1) 25%, rgba(14,68,80,1) 43%, rgba(14,62,76,1) 61%, rgba(14,54,71,1) 81%);
@@ -282,4 +302,85 @@ nav > ul {
 
                 .review-content {
                     padding: 10px;
+                    text-align: center;
                 }
+
+
+
+/* ----------- BROWSE PODCAST ----------- */
+
+.pod-list {
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+    .browse-pod-container {
+        padding: 15px;
+    }
+
+    .browse-pod-content {
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .browse-pod-info {
+        margin-top: 10px;
+        text-align: center;
+    }
+
+        .pod-name {
+            font-size: larger;
+            font-weight: 600;
+        }
+
+
+
+
+/* ----------- ADD REVIEW ----------- */
+
+.hide {
+    display: none;
+}
+
+.clear {
+    float: none;
+    clear: both;
+}
+
+.rating {
+    width: 90px;
+    unicode-bidi: bidi-override;
+    direction: rtl;
+    text-align: center;
+    position: relative;
+}
+
+    .rating > label {
+        float: right;
+        display: inline;
+        padding: 0;
+        margin: 0;
+        position: relative;
+        width: 1.1em;
+        cursor: pointer;
+        color: #000;
+    }
+
+        .rating > label:hover,
+        .rating > label:hover ~ label,
+        .rating > input.radio-btn:checked ~ label {
+            color: transparent;
+        }
+
+            .rating > label:hover:before,
+            .rating > label:hover ~ label:before,
+            .rating > input.radio-btn:checked ~ label:before,
+            .rating > input.radio-btn:checked ~ label:before {
+                content: "\2605";
+                position: absolute;
+                left: 0;
+                color: #FFD700;
+            }

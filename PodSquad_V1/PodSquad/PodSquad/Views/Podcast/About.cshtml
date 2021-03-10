@@ -1,10 +1,10 @@
 ﻿@model Podcast
 
 @{
-    ViewData["Title"] = "About PODCAST"; // TODO: + Model.Name;
+    ViewData["Title"] = "About " + Model.Name;
 }
 
-<h1 class="display-4">PODCAST NAME</h1>
+<h1 class="display-4">Model.Name</h1>
 
 <div class="pod-container">
     <div class="pod-content">
@@ -26,21 +26,16 @@
                     <div class="pod-info">
 
                         @*<div>PODCAST NAME</div>*@
-                        <div>Hosted by HOSTS</div>
-                        <div>NETWORK</div>
-                        <div>GENRE</div>
-                        <div>
-                            DESCRIPTION: DESCRIPTION DESCRIPTION DESCRIPTION
-                            DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION
-                            DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION
-                            DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION
-                        </div>
+                        <div>@Model.HostName</div>
+                        <div>@Model.Network</div>
+                        <div>@Model.Genre</div>
+                        <div>@Model.Description</div>
 
                         @* podcast action buttons *@
                         @* TODO: add tag helpers *@
                         <div class="pod-buttons">
                             <a class="pod-button btn btn-light">Add to My Queue</a>
-                            <a class="pod-button btn btn-light">Add a Review</a>
+                            <a class="pod-button btn btn-light" asp-action="Review">Add a Review</a>
                         </div>
 
                     </div>
@@ -53,69 +48,31 @@
 
 </div>
 
-    @* review section *@
-    @* TODO: add loop to format multiple reviews - 3 reviews per row. if more than 3, create new row *@
+@* review section *@
+
+<div class="reviews-list-container">
     <div class="reviews">
-        <div class="row d-flex justify-content-around">
 
+        @foreach (Review r in Model.Reviews)
+        {
             @* individual review *@
-            <div class="col-4">
-                <div class="review-container">
-                    <div class="review-content text-center">
+            <div class="review-container">
+                <div class="review-content">
 
-                        <div>
+                    <div>
+                        @* loop through rating and display stars *@
+                        @for (int i = 0; i < r.Rating; i++)
+                        {
                             <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                        </div>
-                        <div class="font-italic">REVIEW TEXT: text text text text text text text text text</div>
-                        <div class="font-bold">- User Name</div>
+                        }
 
                     </div>
+                    <div class="font-italic">@r.ReviewText</div>
+                    <div class="font-bold">- @r.Reviewer</div>
+
                 </div>
             </div>
+        }
 
-            @* individual review *@
-            <div class="col-4">
-                <div class="review-container">
-                    <div class="review-content text-center">
-
-                        <div>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                        </div>
-                        <div class="font-italic">REVIEW TEXT: text text text text text text text text text</div>
-                        <div class="font-bold">- User Name</div>
-
-                    </div>
-                </div>
-            </div>
-
-            @* individual review *@
-            <div class="col-4">
-                <div class="review-container">
-                    <div class="review-content text-center">
-
-                        <div>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                        </div>
-                        <div class="font-italic">REVIEW TEXT: text text text text text text text text text</div>
-                        <div class="font-bold">- User Name</div>
-
-                    </div>
-                </div>
-            </div>
-
-
-
-        </div>
+    </div>
     </div>

@@ -1,5 +1,38 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model List<Podcast>
+
 @{
+    ViewData["Title"] = "Browse Podcasts";
 }
+
+<h1 class="display-4">Browse Podcasts</h1>
+
+<div class="pod-container">
+    <div class="pod-content">
+
+        <div class="pod-list">
+
+            @foreach (Podcast p in Model)
+            {
+                <div class="browse-pod-container">
+                    <div class="browse-pod-content">
+                        <a asp-action="About">
+                            @* art *@
+                            <img class="pod-art" src="https://spotlight.radiopublic.com/images/thumbnail?url=https%3A%2F%2Fwww.omnycontent.com%2Fd%2Fplaylist%2Faaea4e69-af51-495e-afc9-a9760146922b%2F44bbf446-4627-4f83-a7fd-ab070007db11%2F72b96aa8-88bd-480a-87af-ab070007db36%2Fimage.jpg%3Ft%3D1573864119%26size%3DLarge" height="175" />
+
+                            <div class="browse-pod-info">
+                                @* name *@
+                                <div class="pod-name">@p.Name</div>
+
+                                @* genre *@
+                                <div>@p.Genre.Name</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            }
+
+        </div>
+
+    </div>
+</div>
+

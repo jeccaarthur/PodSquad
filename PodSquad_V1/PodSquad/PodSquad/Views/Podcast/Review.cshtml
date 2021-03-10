@@ -1,0 +1,59 @@
+﻿@model ReviewVM
+
+@{
+    ViewData["Title"] = "Add a Review";
+}
+
+@{
+    string star = "<span class='glyphicon glyphicon-star'></span>";
+
+}
+
+<h1 class="display-4">Review @Model.PodcastName</h1>
+
+
+<div class="form-container">
+    <div class="form-content">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <form method="post" asp-action="Review">
+
+            <div class="form-group row">
+                <label asp-validation-for="Rating">
+                    Rating: &nbsp;&nbsp;
+                    <span asp-validation-for="Rating" class="text-danger"></span>
+                </label>
+
+
+                <div class="rating">
+                    <input id="star5" name="star" type="radio" value="5" class="radio-btn hide" />
+                    <label for="star5">@Html.Raw(star)</label>
+                    <input id="star4" name="star" type="radio" value="4" class="radio-btn hide" />
+                    <label for="star4">@Html.Raw(star)</label>
+                    <input id="star3" name="star" type="radio" value="3" class="radio-btn hide" />
+                    <label for="star3">@Html.Raw(star)</label>
+                    <input id="star2" name="star" type="radio" value="2" class="radio-btn hide" />
+                    <label for="star2">@Html.Raw(star)</label>
+                    <input id="star1" name="star" type="radio" value="1" class="radio-btn hide" />
+                    <label for="star1">@Html.Raw(star)</label>
+                    <div class="clear"></div>
+                </div>
+
+            </div>
+
+            <div class="form-group row">
+                <label asp-validation-for="ReviewText">
+                    Your Review: &nbsp;&nbsp;
+                    <span asp-validation-for="ReviewText" class="text-danger"></span>
+                </label>
+                <textarea rows="5" id="review" asp-for="ReviewText" class="form-control" placeholder="Write your review here..."></textarea>
+            </div>
+
+
+            <br />
+            <button type="submit" class="btn btn-light">Add Review</button>
+
+        </form>
+
+    </div>
+</div>
