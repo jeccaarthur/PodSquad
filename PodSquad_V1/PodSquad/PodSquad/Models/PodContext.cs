@@ -23,8 +23,8 @@ namespace PodSquad.Models
             builder.Entity<Podcast>()
                 .HasAlternateKey(p => p.Name);
 
-            builder.Entity<Genre>()
-                .HasAlternateKey(g => g.Name);
+            //builder.Entity<Genre>()
+            //    .HasAlternateKey(g => g.Name);
         }
     }
 }

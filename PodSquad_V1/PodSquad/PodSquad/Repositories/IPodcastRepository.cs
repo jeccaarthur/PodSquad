@@ -10,6 +10,7 @@ namespace PodSquad.Repositories
         // podcast methods
         IQueryable<Podcast> Podcasts { get; }
         void AddPod(Podcast podcast);
+        List<Podcast> GetAllPods();
         Podcast GetPodByID(int id);
         Podcast GetPodByName(string name);
         //List<Podcast> GetSavedPods(AppUser user);

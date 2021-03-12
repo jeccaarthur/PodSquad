@@ -1,10 +1,10 @@
 ﻿@model Podcast
 
 @{
-    ViewData["Title"] = "About " + Model.Name;
+    ViewData["Title"] = "About";
 }
 
-<h1 class="display-4">Model.Name</h1>
+<h1 class="display-4">@Model.Name</h1>
 
 <div class="pod-container">
     <div class="pod-content">
@@ -26,16 +26,16 @@
                     <div class="pod-info">
 
                         @*<div>PODCAST NAME</div>*@
-                        <div>@Model.HostName</div>
-                        <div>@Model.Network</div>
-                        <div>@Model.Genre</div>
-                        <div>@Model.Description</div>
+                        <div>Host(s): @Model.HostName</div>
+                        <div>Network: @Model.Network</div>
+                        <div>Genre: @Model.Genre.Name</div>
+                        <div>Description: @Model.Description</div>
 
                         @* podcast action buttons *@
                         @* TODO: add tag helpers *@
                         <div class="pod-buttons">
                             <a class="pod-button btn btn-light">Add to My Queue</a>
-                            <a class="pod-button btn btn-light" asp-action="Review">Add a Review</a>
+                            <a class="pod-button btn btn-light" asp-action="Review" asp-route-podcastID="@Model.PodcastID">Add a Review</a>
                         </div>
 
                     </div>

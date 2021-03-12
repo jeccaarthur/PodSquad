@@ -17,11 +17,6 @@ namespace PodSquad.Repositories
 
 
 
-
-
-
-
-
         #region PODCAST METHODS
 
         public IQueryable<Podcast> Podcasts
@@ -42,17 +37,34 @@ namespace PodSquad.Repositories
             context.SaveChanges();
         }
 
-        // retrieve podcast with matching id
-        public Podcast GetPodByID(int id)
+        // retrieve all podcasts
+        public List<Podcast> GetAllPods()
         {
-            Podcast podcast = context.Podcasts.First(pod => pod.PodcastID == id);
+            List<Podcast> podcasts = context.Podcasts
+                .Include(pod => pod.Genre)
+                .Include(pod => pod.Reviews)
+                .ThenInclude(review => review.Reviewer)
+                .ToList();
+
+            return podcasts;
+        }
+
+        // retrieve podcast with matching id
+        public Podcast GetPodByID(int podcastID)
+        {
+            Podcast podcast = context.Podcasts
+                .Include(pod => pod.Genre)
+                .Include(pod => pod.Reviews)
+                .ThenInclude(review => review.Reviewer)
+                .Where(pod => pod.PodcastID == podcastID).FirstOrDefault();
+
             return podcast;
         }
 
         // retrieve podcast with matching name
         public Podcast GetPodByName(string name)
         {
-            Podcast podcast = context.Podcasts.First(pod => pod.Name == name);
+            Podcast podcast = Podcasts.First(pod => pod.Name == name);
             return podcast;
         }
 

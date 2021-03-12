@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using PodSquad.Models;
 using Microsoft.AspNetCore.Identity;
 using PodSquad.Repositories;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace PodSquad
 {
@@ -51,7 +52,7 @@ namespace PodSquad
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, PodContext context)
         {
             if (env.IsDevelopment())
             {
@@ -68,6 +69,9 @@ namespace PodSquad
 
             app.UseRouting();
 
+            // enable CORS
+            app.UseCors();
+
             app.UseAuthentication();
             app.UseAuthorization();
 
@@ -77,6 +81,12 @@ namespace PodSquad
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            var serviceProvider = app.ApplicationServices;
+            var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var userManager = serviceProvider.GetRequiredService<UserManager<AppUser>>();
+
+            SeedData.Seed(context, roleManager, userManager);
         }
     }
 }

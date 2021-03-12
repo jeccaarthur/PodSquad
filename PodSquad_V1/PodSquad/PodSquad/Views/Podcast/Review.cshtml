@@ -6,7 +6,6 @@
 
 @{
     string star = "<span class='glyphicon glyphicon-star'></span>";
-
 }
 
 <h1 class="display-4">Review @Model.PodcastName</h1>
@@ -18,28 +17,49 @@
 
         <form method="post" asp-action="Review">
 
-            <div class="form-group row">
-                <label asp-validation-for="Rating">
-                    Rating: &nbsp;&nbsp;
-                    <span asp-validation-for="Rating" class="text-danger"></span>
-                </label>
+
+            @* hide podcastID and name inputs so they are stored in model but not shown to the user *@
+            <div class="form-group hidden">
+                <input type="hidden" asp-for="PodcastID" value="@Model.PodcastID" />
+                <input type="hidden" asp-for="PodcastName" value="@Model.PodcastName" />
+            </div>
 
 
-                <div class="rating">
-                    <input id="star5" name="star" type="radio" value="5" class="radio-btn hide" />
-                    <label for="star5">@Html.Raw(star)</label>
-                    <input id="star4" name="star" type="radio" value="4" class="radio-btn hide" />
-                    <label for="star4">@Html.Raw(star)</label>
-                    <input id="star3" name="star" type="radio" value="3" class="radio-btn hide" />
-                    <label for="star3">@Html.Raw(star)</label>
-                    <input id="star2" name="star" type="radio" value="2" class="radio-btn hide" />
-                    <label for="star2">@Html.Raw(star)</label>
-                    <input id="star1" name="star" type="radio" value="1" class="radio-btn hide" />
-                    <label for="star1">@Html.Raw(star)</label>
-                    <div class="clear"></div>
-                </div>
+
+
+            @* TODO: store rating *@
+        <div class="form-group row">
+            <label asp-validation-for="Rating">
+                Rating: &nbsp;&nbsp;
+                <span asp-validation-for="Rating" class="text-danger"></span>
+            </label>
+
+            <div class="rating">
+
+                <input asp-for="Rating" id="star5" name="star" type="radio" value="5" class="input-control radio-btn hide" />
+                <label asp-for="Rating" for="star5">@Html.Raw(star)</label>
+
+                <input asp-for="Rating" id="star4" name="star" type="radio" value="4" class="input-control radio-btn hide" />
+                <label asp-for="Rating" for="star4">@Html.Raw(star)</label>
+
+                <input asp-for="Rating" id="star3" name="star" type="radio" value="3" class="input-control radio-btn hide" />
+                <label asp-for="Rating" for="star3">@Html.Raw(star)</label>
+
+                <input asp-for="Rating" id="star2" name="star" type="radio" value="2" class="input-control radio-btn hide" />
+                <label asp-for="Rating" for="star2">@Html.Raw(star)</label>
+
+                <input asp-for="Rating" id="star1" name="star" type="radio" value="1" class="input-control radio-btn hide" />
+                <label asp-for="Rating" for="star1">@Html.Raw(star)</label>
+
+                <div class="clear"></div>
 
             </div>
+
+        </div>
+
+
+
+
 
             <div class="form-group row">
                 <label asp-validation-for="ReviewText">

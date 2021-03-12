@@ -22,4 +22,7 @@
     <Folder Include="Views\Forum\" />
     <Folder Include="Repositories\" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="PodSquad.db-shm" />
+  </ItemGroup>
 </Project>

@@ -15,19 +15,20 @@
             {
                 <div class="browse-pod-container">
                     <div class="browse-pod-content">
-                        <a asp-action="About">
-                            @* art *@
-                            <img class="pod-art" src="https://spotlight.radiopublic.com/images/thumbnail?url=https%3A%2F%2Fwww.omnycontent.com%2Fd%2Fplaylist%2Faaea4e69-af51-495e-afc9-a9760146922b%2F44bbf446-4627-4f83-a7fd-ab070007db11%2F72b96aa8-88bd-480a-87af-ab070007db36%2Fimage.jpg%3Ft%3D1573864119%26size%3DLarge" height="175" />
+                        <a asp-action="About" asp-route-podcastID="@p.PodcastID">
+                            @*<a asp-action="Browse">*@
+                                @* art *@
+                                <img class="pod-art" src="https://spotlight.radiopublic.com/images/thumbnail?url=https%3A%2F%2Fwww.omnycontent.com%2Fd%2Fplaylist%2Faaea4e69-af51-495e-afc9-a9760146922b%2F44bbf446-4627-4f83-a7fd-ab070007db11%2F72b96aa8-88bd-480a-87af-ab070007db36%2Fimage.jpg%3Ft%3D1573864119%26size%3DLarge" height="175" />
 
-                            <div class="browse-pod-info">
-                                @* name *@
-                                <div class="pod-name">@p.Name</div>
+                                <div class="browse-pod-info">
+                                    @* name *@
+                                    <div class="pod-name">@p.Name</div>
 
-                                @* genre *@
-                                <div>@p.Genre.Name</div>
-                            </div>
-                        </a>
-                    </div>
+                                    @* genre *@
+                                    <div>@p.Genre.Name</div>
+                                </div>
+                            </a>
+</div>
                 </div>
             }
 

@@ -39,6 +39,13 @@ namespace PodSquad.Repositories
             }
         }
 
+        public List<Podcast> GetAllPods()
+        {
+            podcasts = Podcasts.ToList();
+
+            return podcasts;
+        }
+
         // retrieve podcast with matching id
         public Podcast GetPodByID(int id)
         {

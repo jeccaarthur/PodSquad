@@ -20,15 +20,12 @@ namespace PodSquad.Controllers
             userManager = u;
         }
 
-        [HttpGet]
-        public IActionResult About(Podcast podcast)
+        public IActionResult About(int podcastID)
         {
-            // TODO: get reviews for podcast id
-            //podcast.Reviews = repo.GetReviews(podcast.PodcastID);
+            var podcast = repo.GetPodByID(podcastID);
 
             return View(podcast);
         }
-
 
         [HttpGet]
         public IActionResult AddPod()
@@ -52,31 +49,59 @@ namespace PodSquad.Controllers
         [HttpGet]
         public IActionResult Review(int podcastID)
         {
+            // retrieve podcast with id
+            Podcast podcast = repo.GetPodByID(podcastID);
+
             // create an instance of reviewVM and assign the current podcast ID to it
-            ReviewVM reviewVM = new ReviewVM();
-            reviewVM.PodcastID = podcastID;
+            var reviewVM = new ReviewVM
+            {
+                PodcastID = podcastID,
+                PodcastName = podcast.Name
+            };
+            //reviewVM.PodcastID = id;
+            //reviewVM.PodcastName = podcast.Name;
 
             return View(reviewVM);
         }
 
+        [HttpPost]
         public RedirectToActionResult Review(ReviewVM reviewVM)
         {
-            // create Review object and assign values out of reviewVM
-            Review review = new Review();
-            // TODO: uncomment reviewer
-            //review.Reviewer = userManager.GetUserAsync(User).Result;
-            review.Date = DateTime.Now;
-            review.Rating = reviewVM.Rating;
-            review.ReviewText = reviewVM.ReviewText;
+            if (ModelState.IsValid)
+            {
+                // create Review object and assign values out of reviewVM
+                Review review = new Review();
+                // TODO: uncomment reviewer
+                //review.Reviewer = userManager.GetUserAsync(User).Result;
+                review.Date = DateTime.Now;
+                review.Rating = reviewVM.Rating;
+                review.ReviewText = reviewVM.ReviewText;
 
-            // get the podcast this review is for
-            Podcast podcast = repo.GetPodByID(reviewVM.PodcastID);
+                // get the podcast this review is for
+                Podcast podcast = repo.GetPodByID(reviewVM.PodcastID);
 
-            // add review to db
-            podcast.Reviews.Add(review);
-            repo.AddReview(review);
+                // add review to db
+                podcast.Reviews.Add(review);
+                repo.AddReview(review);
+            }
 
-            return RedirectToAction("About", reviewVM.PodcastID);
+            int id = reviewVM.PodcastID;
+
+            return RedirectToAction("About", new { podcastID = id });
+        }
+
+        [HttpGet]
+        public IActionResult Browse()
+        {
+            List<Podcast> podcasts = repo.GetAllPods();
+
+            return View(podcasts);
+        }
+
+        [HttpPost]
+        public RedirectToActionResult Browse(int podcastID)
+        {
+            return RedirectToAction("About");
         }
     }
 }

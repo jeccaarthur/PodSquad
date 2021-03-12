@@ -9,7 +9,7 @@ a.navbar-brand {
 
 /* Provide sufficient contrast against white background */
 a {
-    color: #0366d6;
+    color: #50ffef;
 }
 
 .btn {
@@ -189,6 +189,24 @@ nav > ul {
     margin: auto;
 }
 
+.trail {
+    position: relative;
+    margin-bottom: 20px;
+    line-height: 1.1em;
+    left: -20px;
+}
+
+.trail-icon {
+    vertical-align: middle;
+    margin-right: 3px;
+    font-size: 0.8em;
+}
+
+.trail-name {
+    vertical-align: middle;
+    font-size: 1.1em;
+}
+
 
 /* ----------- FORMS ----------- */
 
@@ -205,8 +223,12 @@ nav > ul {
 }
 
 form button {
-    width: 50%;
-    
+    width: 50%;   
+}
+
+/* hidden inputs for data storage */
+.hidden {
+    visibility: hidden !important;
 }
 
 
@@ -384,3 +406,63 @@ form button {
                 left: 0;
                 color: #FFD700;
             }
+
+
+
+/* ----------- THREAD ----------- */
+
+.thread-container {
+    width: 100%;
+    position: relative;
+    background-color: white;
+}
+
+.thread-content {
+
+}
+
+.post-container {
+    padding: 10px;
+    background-color: #d00000;
+}
+
+.post-content {
+    width: 100%;
+    padding: 15px;
+}
+
+.thread-text {
+    width: 100%;
+}
+
+.thread-info {
+    display: inline-block;
+    color: #444444;
+    font-size: 0.8em;
+    margin-top: 8px;
+}
+
+.thread-replies {
+
+}
+
+.reply-container {
+    margin-left: 30px;
+    padding: 10px;
+    background-color: #999999;
+}
+
+.reply-content {
+    padding: 10px;
+    background-color: #f0f0f0;
+    color: black;
+}
+
+.reply-header {
+    font-weight: 600;
+}
+
+.reply-button {
+    display: inline-block;
+    float: right;
+}
