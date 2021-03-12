@@ -408,6 +408,15 @@ form button {
             }
 
 
+/* ----------- FORUM ----------- */
+
+.separator {
+    height: 15px;
+}
+
+.right {
+    text-align: right;
+}
 
 /* ----------- THREAD ----------- */
 

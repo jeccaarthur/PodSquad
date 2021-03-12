@@ -1,0 +1,36 @@
+﻿@model List<Post>
+
+@{
+    ViewData["Title"] = "Forum";
+}
+
+<div class="post-list-container">
+    <div class="post-list">
+
+
+        @foreach (Post p in Model)
+        {
+            @* individual post *@
+            <div class="post-container">
+                <div class="post-content">
+
+                    <div class="post-left row">
+                        <div class="col"><h4>Model.Title</h4></div>
+                        <div class="col right"><div>Model.Poster.FirstName</div></div>
+                    </div>
+
+
+                    <div class="post-right row">
+                        <div class="col"><div>Num Comments</div></div>
+                        <div class="col right"><div>Model.Date</div></div>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <div class="separator"></div>
+        }
+
+    </div>
+</div>
