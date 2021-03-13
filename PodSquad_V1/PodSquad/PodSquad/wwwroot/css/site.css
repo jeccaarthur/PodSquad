@@ -10,10 +10,17 @@ a.navbar-brand {
 /* Provide sufficient contrast against white background */
 a {
     color: #50ffef;
+    text-decoration: none;
 }
+
+    a:hover {
+        color: #444444;
+        text-decoration: none;
+    }
 
 .btn {
     border-radius: 30px;
+    padding: .375rem 1.2rem;
 }
 
 .btn-primary {
@@ -153,25 +160,20 @@ hr {
     }
 
 .navigation {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
     margin: 0 auto;
     width: 100%;
     line-height: 50px;
     border-radius: 30px;
     background-color: #f0f0f0;
-    color: #0c1c31;
 }
 
-nav > ul {
-    list-style-type: none;
-    margin-left: 100px;
-    margin-right: 100px;
-}
-
-    nav > ul > li {
-        float: left;
-        padding: 10px;
+    .navigation > a {
+        color: #0c1c31 !important;
     }
-
 
 /* ----------- PAGE CONTENT ----------- */
 
@@ -410,6 +412,23 @@ form button {
 
 /* ----------- FORUM ----------- */
 
+.create-post {
+    text-align: right;
+    color: black !important;
+}
+
+.post-container-base {
+    background-color: #41b5d7;
+}
+
+.post-container {
+
+}
+
+.post-list {
+    padding: 20px;
+}
+
 .separator {
     height: 15px;
 }
@@ -432,7 +451,13 @@ form button {
 
 .post-container {
     padding: 10px;
-    background-color: #d00000;
+    /*    background-color: rgba(108, 122, 137, 0.1);*/
+    -webkit-box-shadow: -1px 1px 15px 2px rgba(0,0,0,0.51);
+    box-shadow: -1px 1px 15px 2px rgba(0,0,0,0.51);
+
+    /* gradient */
+    background: rgb(97,45,253);
+    background: linear-gradient( 0deg, rgba(97,45,253,0.5) 5%, rgba(86,69,244,0.5) 15%, rgba(81,82,239,0.5) 26%, rgba(77,92,235,0.5) 34%, rgba(72,103,230,0.5) 40%, rgba(67,114,226,0.5) 45%, rgba(62,126,221,0.5) 51%, rgba(53,147,213,0.5) 61%, rgba(48,159,209,0.5) 67%, rgba(44,169,205,0.5) 73%, rgba(39,180,200,0.5) 80%, rgba(37,187,198,0.5) 87%, rgba(34,193,195,0.5) 100%);
 }
 
 .post-content {
@@ -457,7 +482,6 @@ form button {
 
 .reply-container {
     margin-left: 30px;
-    padding: 10px;
     background-color: #999999;
 }
 
@@ -474,4 +498,9 @@ form button {
 .reply-button {
     display: inline-block;
     float: right;
+}
+
+.reply-form-container {
+    width: 93%;
+    margin: auto;
 }
