@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PodSquad.Models;
@@ -20,6 +21,7 @@ namespace PodSquad.Controllers
             userManager = u;
         }
 
+        [HttpGet]
         public IActionResult About(int podcastID)
         {
             var podcast = repo.GetPodByID(podcastID);
@@ -27,16 +29,23 @@ namespace PodSquad.Controllers
             return View(podcast);
         }
 
+
+
+        [Authorize(Roles = "Member, Admin")]
         [HttpGet]
         public IActionResult AddPod()
         {
             return View();
         }
 
+        [Authorize(Roles = "Member, Admin")]
         // TODO: make this async?
         [HttpPost]
         public IActionResult AddPod(Podcast podcast)
         {
+            // TODO: this is where to call spotify api
+
+
             // add pod's genre to db and assign it to podcast
             repo.AddGenre(podcast.Genre);
 
@@ -46,6 +55,8 @@ namespace PodSquad.Controllers
             return View(podcast);
         }
 
+
+        [Authorize(Roles = "Member, Admin")]
         [HttpGet]
         public IActionResult Review(int podcastID)
         {
@@ -58,12 +69,11 @@ namespace PodSquad.Controllers
                 PodcastID = podcastID,
                 PodcastName = podcast.Name
             };
-            //reviewVM.PodcastID = id;
-            //reviewVM.PodcastName = podcast.Name;
 
             return View(reviewVM);
         }
 
+        [Authorize(Roles = "Member, Admin")]
         [HttpPost]
         public RedirectToActionResult Review(ReviewVM reviewVM)
         {
@@ -71,9 +81,12 @@ namespace PodSquad.Controllers
             {
                 // create Review object and assign values out of reviewVM
                 Review review = new Review();
+
                 // TODO: uncomment reviewer
                 //review.Reviewer = userManager.GetUserAsync(User).Result;
                 review.Date = DateTime.Now;
+
+                // TODO: store rating properly
                 review.Rating = reviewVM.Rating;
                 review.ReviewText = reviewVM.ReviewText;
 
@@ -85,6 +98,7 @@ namespace PodSquad.Controllers
                 repo.AddReview(review);
             }
 
+            // store current podcastID for easy access to send back to About page
             int id = reviewVM.PodcastID;
 
             return RedirectToAction("About", new { podcastID = id });

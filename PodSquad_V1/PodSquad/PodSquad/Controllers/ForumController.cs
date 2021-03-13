@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PodSquad.Models;
@@ -9,7 +10,7 @@ using PodSquad.Repositories;
 
 namespace PodSquad.Controllers
 {
-    // TODO: restrict to authorized users
+    [Authorize(Roles = "Member, Admin")]
     public class ForumController : Controller
     {
         IForumRepository repo;
