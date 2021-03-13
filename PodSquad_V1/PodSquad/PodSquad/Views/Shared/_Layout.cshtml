@@ -43,7 +43,7 @@
                     @if (signInManager.IsSignedIn(User))
                     {
                         @* display user name and icon to logged in users *@
-                        <a class="logout-button header-button btn btn-outline-light">
+                        <a class="logout-button header-button btn btn-outline-light" asp-controller="Account" asp-action="Logout">
                             <span class="glyphicon glyphicon-user"></span>
                             <span class="username">@User.Identity.Name</span>
                             <span class="logout">Logout</span>
@@ -53,7 +53,7 @@
                     {
                         @* display register and login buttons to users not logged in *@
                         <a class="header-button btn btn-outline-light" asp-controller="Account" asp-action="Login">Login</a>
-                        <a class="header-button btn btn-outline-light" asp-controller="Account" asp-action="CreateAccount">Register</a>
+                        <a class="header-button btn btn-outline-light" asp-controller="Account" asp-action="CreateAccount">Create Account</a>
                     }
 
 
