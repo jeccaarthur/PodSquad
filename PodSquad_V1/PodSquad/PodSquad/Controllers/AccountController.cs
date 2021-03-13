@@ -68,12 +68,17 @@ namespace PodSquad.Controllers
         {
             if (ModelState.IsValid)
             {
+                // set user values
                 AppUser user = new AppUser
                 {
-                    UserName = createAccountVM.Username
+                    UserName = createAccountVM.Username,
+                    FirstName = createAccountVM.FirstName,
+                    LastName = createAccountVM.LastName
                 };
 
+                // create user and assign member role
                 var result = await userManager.CreateAsync(user, createAccountVM.Password);
+                await userManager.AddToRoleAsync(user, "Member");
 
                 if (result.Succeeded)
                 {
