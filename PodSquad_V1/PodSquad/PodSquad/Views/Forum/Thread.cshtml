@@ -1,0 +1,63 @@
+﻿@model Post
+
+@{
+    ViewData["Title"] = "View Thread";
+}
+
+
+<div class="trail">
+    <a asp-action="Index">
+        <span class="trail-icon glyphicon glyphicon-menu-left"></span>
+        <span class="trail-name">Back to Forum</span>
+    </a>
+</div>
+
+
+<div class="thread-container">
+    <div class="thread-content">
+
+
+        @* post (parent) *@
+        <div class="post-container">
+            <div class="post-content">
+
+                <div class="thread-text">
+                    <h4>@Model.Title</h4>
+                    <div>@Model.Body</div>
+                </div>
+
+                <div class="thread-info">
+                    <div>Posted by @Model.Poster.FirstName on @Model.Date</div>
+                </div>
+                <div class="reply-button">
+                    @*<a class="btn btn-light" asp-action="Reply" asp-route-postID="@Model.PostID">Reply</a>*@
+                    <a class="btn btn-light" asp-action="Reply">Reply</a>
+                </div>
+
+            </div>
+        </div>
+
+
+
+        <div class="thread-replies">
+
+            @foreach (Reply r in Model.Replies)
+            {
+
+                @* individual reply *@
+                <div class="reply-container">
+                    <div class="reply-content">
+
+                        <div class="reply-header">r.Responder.FirstName responded:</div>
+                        <div>@r.ReplyText</div>
+                        <div class="thread-info">@r.Date</div>
+
+                    </div>
+                </div>
+
+            }
+
+        </div>
+
+    </div>
+</div>

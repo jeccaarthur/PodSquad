@@ -32,7 +32,7 @@ namespace PodSquad.Repositories
         // retrieve all posts
         public List<Post> GetAllPosts()
         {
-            posts = Posts.ToList();
+            posts = Posts.OrderByDescending(p => p.Date).ToList();
 
             return posts;
         }

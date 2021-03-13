@@ -40,7 +40,7 @@ namespace PodSquad.Repositories
         // retrieve all posts
         public List<Post> GetAllPosts()
         {
-            List<Post> posts = context.Posts
+            List<Post> posts = context.Posts.OrderByDescending(p => p.Date)
                 .Include(p => p.Poster)
                 .Include(p => p.Replies)
                 .ThenInclude(r => r.Responder).ToList();
@@ -51,7 +51,7 @@ namespace PodSquad.Repositories
         // retrieve post with matching id
         public Post GetPostByID(int id)
         {
-            Post post = context.Posts
+            Post post = context.Posts.Where(p => p.PostID == id)
                 .Include(p => p.Poster)
                 .Include(p => p.Replies)
                 .ThenInclude(r => r.Responder).FirstOrDefault();

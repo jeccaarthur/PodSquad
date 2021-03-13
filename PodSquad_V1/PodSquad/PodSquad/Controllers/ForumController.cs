@@ -9,6 +9,7 @@ using PodSquad.Repositories;
 
 namespace PodSquad.Controllers
 {
+    // TODO: restrict to authorized users
     public class ForumController : Controller
     {
         IForumRepository repo;
@@ -21,6 +22,14 @@ namespace PodSquad.Controllers
         }
 
         [HttpGet]
+        public IActionResult Index()
+        {
+            List<Post> posts = repo.GetAllPosts();
+
+            return View(posts);
+        }
+
+        [HttpGet]
         public IActionResult Post()
         {
             return View();
@@ -29,7 +38,8 @@ namespace PodSquad.Controllers
         [HttpPost]
         public RedirectToActionResult Post(Post post)
         {
-            // TODO: assign user to post
+            // assign user to post
+            post.Poster = userManager.GetUserAsync(User).Result;
 
             // set date
             post.Date = DateTime.Now;
@@ -57,6 +67,7 @@ namespace PodSquad.Controllers
             return View(replyVM);
         }
 
+
         [HttpPost]
         public RedirectToActionResult Reply(ReplyVM replyVM)
         {
@@ -70,8 +81,11 @@ namespace PodSquad.Controllers
                 reply.Date = DateTime.Now;
                 reply.ReplyText = replyVM.ReplyText;
 
+                // get the post this reply is on
+                Post post = repo.GetPostByID(replyVM.Post.PostID);
+
                 // add reply to db
-                replyVM.Post.Replies.Add(reply);
+                post.Replies.Add(reply);
                 repo.AddReply(reply);
             }
 
@@ -81,13 +95,14 @@ namespace PodSquad.Controllers
             return RedirectToAction("Thread", new { postID = id });
         }
 
+
         [HttpGet]
         public IActionResult Thread(int postID)
         {
-            // get post with id
+            // get post with id and send to view
             Post post = repo.GetPostByID(postID);
 
-            return View();
+            return View(post);
         }
     }
 }
