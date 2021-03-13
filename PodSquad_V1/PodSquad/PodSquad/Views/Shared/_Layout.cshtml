@@ -43,10 +43,10 @@
                     @if (signInManager.IsSignedIn(User))
                     {
                         @* display user name and icon to logged in users *@
-                        <a type="button" class="logout-button header-button btn btn-outline-light">
+                        <a class="logout-button header-button btn btn-outline-light">
                             <span class="glyphicon glyphicon-user"></span>
-                            &nbsp;
-                            @User.Identity.Name
+                            <span class="username">@User.Identity.Name</span>
+                            <span class="logout">Logout</span>
                         </a>
                     }
                     else

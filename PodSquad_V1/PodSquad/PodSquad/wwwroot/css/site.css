@@ -157,7 +157,34 @@ hr {
 
     .logout-button {
         display: inline-block;
+        width: 10em;
     }
+
+        .logout-button:hover {
+            color: #0c1c31 !important;
+        }
+
+        .logout-button .glyphicon-user {
+            font-size: 0.9em;
+            margin-right: 5px;
+        }
+
+    .logout-button:hover .username {
+        display: none;
+    }
+
+    .logout-button:hover .logout {
+        display: inline;
+        font-weight: 500;
+    }
+
+        .username {
+            display: inline;
+        }
+
+        .logout {
+            display: none;
+        }
 
 .navigation {
     display: flex;
