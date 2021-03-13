@@ -46,7 +46,7 @@
                         <a type="button" class="logout-button header-button btn btn-outline-light">
                             <span class="glyphicon glyphicon-user"></span>
                             &nbsp;
-                            User Name
+                            @User.Identity.Name
                         </a>
                     }
                     else
@@ -59,11 +59,12 @@
 
                     @* navigation *@
                     <nav class="text-center">
-                        <div class="navigation row">
-                            <div class="col">Home</div>
-                            <div class="col">Link1</div>
-                            <div class="col">Link2</div>
-                            <div class="col">Link3</div>
+                        <div class="navigation">
+                            <a asp-controller="Home" asp-action="Index"><div>Home</div></a>
+                            <a asp-controller="Podcast" asp-action="Browse"><div>Browse</div></a>
+                            <a asp-controller="Podcast" asp-action="Queue"><div>My Queue</div></a>
+                            <a asp-controller="Podcast" asp-action="Add"><div>Recommend a Pod</div></a>
+                            <a asp-controller="Forum" asp-action="Index"><div>Forum</div></a>
                         </div>
                     </nav>
 
