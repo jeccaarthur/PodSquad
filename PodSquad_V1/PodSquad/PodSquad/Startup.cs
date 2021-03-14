@@ -15,6 +15,9 @@ using Microsoft.AspNetCore.Identity;
 using PodSquad.Repositories;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
+using FluentSpotifyApi;
+using FluentSpotifyApi.DependencyInjection;
+
 namespace PodSquad
 {
     public class Startup
@@ -37,7 +40,6 @@ namespace PodSquad
             {
                 services.AddDbContext<PodContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:AzureSQLServerConnection"]));
             }
-
             else
             {
                 services.AddDbContext<PodContext>(options => options.UseSqlite(Configuration["ConnectionStrings:SQLiteConnection"]));
@@ -49,6 +51,9 @@ namespace PodSquad
             // inject repository into controllers
             services.AddTransient<IPodcastRepository, PodcastRepository>();
             services.AddTransient<IForumRepository, ForumRepository>();
+
+            // spotify service
+            services.AddFluentSpotifyClient();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
