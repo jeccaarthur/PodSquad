@@ -71,6 +71,10 @@ namespace PodSquad.Controllers
                 // add review to db
                 podcast.Reviews.Add(review);
                 repo.AddReview(review);
+
+                // update average rating
+                podcast.AvgRating = repo.CalculateAvgRating(podcast);
+                repo.UpdatePod(podcast);
             }
 
             // store current podcastID for easy access to send back to About page
@@ -92,15 +96,6 @@ namespace PodSquad.Controllers
         {
             return RedirectToAction("About");
         }
-
-
-
-
-        // SPOTIFY METHODS
-
-
-
-
 
         // takes podcast name input from user
         [Authorize(Roles = "Member, Admin")]

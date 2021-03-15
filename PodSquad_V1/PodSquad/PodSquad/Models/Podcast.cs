@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
 using PodSquad.Repositories;
 
@@ -19,8 +20,6 @@ namespace PodSquad.Models
         public string ImageURL { get; set; }
         public string SpotifyURL { get; set; }
         public List<Review> Reviews { get { return reviews; } }
-
-        // TODO: add average rating property with logic to calculate
-        // public double AvgRating { get; set; }
+        public int AvgRating { get; set; }
     }
 }

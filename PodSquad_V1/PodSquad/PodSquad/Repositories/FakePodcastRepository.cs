@@ -119,6 +119,16 @@ namespace PodSquad.Repositories
             throw new NotImplementedException();
         }
 
+        public int CalculateAvgRating(Podcast podcast)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdatePod(Podcast podcast)
+        {
+            throw new NotImplementedException();
+        }
+
         //public List<Review> GetReviews(int podcastID)
         //{
         //    List<Review> reviewList = Reviews.Where(r => r. == podcastID)

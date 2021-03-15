@@ -15,7 +15,7 @@
             <div class="col">
                 <div class="pod-art-container">
                     <div class="pod-art-content">
-                        <img class="pod-art" src="https://spotlight.radiopublic.com/images/thumbnail?url=https%3A%2F%2Fwww.omnycontent.com%2Fd%2Fplaylist%2Faaea4e69-af51-495e-afc9-a9760146922b%2F44bbf446-4627-4f83-a7fd-ab070007db11%2F72b96aa8-88bd-480a-87af-ab070007db36%2Fimage.jpg%3Ft%3D1573864119%26size%3DLarge" height="325" />
+                        <img class="pod-art" src="@Model.ImageURL" height="325" />
                     </div>
                 </div>
             </div>
@@ -27,12 +27,20 @@
 
                         <h4>@Model.Name</h4>
                         <h5 class="network">Network: @Model.Network</h5>
+
+                        <div class="avg-rating">
+                            PodSquad Rating: &nbsp;
+                            @for (int i = 1; i <= Model.AvgRating; i++)
+                            {
+                                <span class="glyphicon glyphicon-star"></span>
+                            }
+                        </div>
+
                         <div class="mt-4">@Model.Description</div>
 
                         @* podcast action buttons *@
-                        @* TODO: add tag helpers *@
                         <div class="pod-buttons">
-                            <a class="pod-button btn btn-light" href="@Model.SpotifyURL">Open in Spotify</a>
+                            <a class="pod-button btn btn-light" href="@Model.SpotifyURL" target="_blank">Open in Spotify</a>
                             <a class="pod-button btn btn-light" asp-action="Review" asp-route-podcastID="@Model.PodcastID">Add a Review</a>
                         </div>
 

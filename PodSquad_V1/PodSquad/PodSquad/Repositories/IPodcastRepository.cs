@@ -14,9 +14,11 @@ namespace PodSquad.Repositories
         List<Podcast> GetAllPods();
         Podcast GetPodByID(int id);
         Podcast GetPodByName(string name);
-        public Podcast GetPodBySpotifyID(string spotifyID);
+        Podcast GetPodBySpotifyID(string spotifyID);
+        int CalculateAvgRating(Podcast podcast);
+
         //List<Podcast> GetSavedPods(AppUser user);
-        //void UpdatePod(Podcast podcast);
+        void UpdatePod(Podcast podcast);
         //void DeletePod(int id);
         //int GetAverageRating();
         //Task<List<Podcast>> SearchSpotify(string name);
