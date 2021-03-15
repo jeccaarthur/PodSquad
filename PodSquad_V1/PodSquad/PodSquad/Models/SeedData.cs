@@ -12,6 +12,9 @@ namespace PodSquad.Models
     {
         public static void Seed(PodContext context, RoleManager<IdentityRole> roleManager, UserManager<AppUser> userManager)
         {
+            // TODO: update seeded data to reflect updated podcast properties
+            // (removed genre and hostname)
+            
             // if podcast table is empty, seed data
             if (!context.Podcasts.Any())
             {
@@ -34,22 +37,6 @@ namespace PodSquad.Models
                 // save changes to db
                 context.SaveChanges();
 
-
-                // seed fake genres
-                var genre1 = new Genre
-                {
-                    Name = "Genre 1",
-                    Description = "A genre description. This genre is absolutely riveting."
-                };
-                context.Genres.Add(genre1);
-
-                var genre2 = new Genre
-                {
-                    Name = "Genre 2",
-                    Description = "Another genre description. This genre is absolutely riveting."
-                };
-                context.Genres.Add(genre2);
-
                 // save changes to db
                 context.SaveChanges();
 
@@ -58,8 +45,7 @@ namespace PodSquad.Models
                 var pod1 = new Podcast
                 {
                     Name = "Podcast 1",
-                    Genre = genre1,
-                    HostName = "Host name",
+                    Network = "Network",
                     Description = "This is a podcast description. I hope you enjoy.",
                 };
                 context.Podcasts.Add(pod1);
@@ -67,8 +53,7 @@ namespace PodSquad.Models
                 var pod2 = new Podcast
                 {
                     Name = "Podcast 2",
-                    Genre = genre1,
-                    HostName = "Host name",
+                    Network = "Network",
                     Description = "This is a podcast description. I hope you enjoy.",
                 };
                 context.Podcasts.Add(pod2);
@@ -76,8 +61,7 @@ namespace PodSquad.Models
                 var pod3 = new Podcast
                 {
                     Name = "Podcast 3",
-                    Genre = genre1,
-                    HostName = "Host name",
+                    Network = "Network",
                     Description = "This is a podcast description. I hope you enjoy.",
                 };
                 context.Podcasts.Add(pod3);
@@ -85,8 +69,7 @@ namespace PodSquad.Models
                 var pod4 = new Podcast
                 {
                     Name = "Podcast 4",
-                    Genre = genre2,
-                    HostName = "Host name",
+                    Network = "Network",
                     Description = "This is a podcast description. I hope you enjoy.",
                 };
                 context.Podcasts.Add(pod4);
@@ -94,8 +77,7 @@ namespace PodSquad.Models
                 var pod5 = new Podcast
                 {
                     Name = "Podcast 5",
-                    Genre = genre2,
-                    HostName = "Host name",
+                    Network = "Network",
                     Description = "This is a podcast description. I hope you enjoy.",
                 };
                 context.Podcasts.Add(pod5);
@@ -116,10 +98,10 @@ namespace PodSquad.Models
 
                 var post2 = new Post
                 {
-                    Title = "First post",
-                    Body = "This is the first post in the forum. Enjoy it.",
+                    Title = "Second post",
+                    Body = "This is the second post in the forum. Enjoy it.",
                     Date = DateTime.Now,
-                    Poster = new AppUser { FirstName = "Jecca", LastName = "Arthur" }
+                    Poster = new AppUser { FirstName = "Misha", LastName = "Danger" }
                 };
                 context.Posts.Add(post2);
 

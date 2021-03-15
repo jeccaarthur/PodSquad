@@ -142,6 +142,7 @@ namespace PodSquadTests
             Assert.AreEqual("Podcast description 1", pod.Description);
         }
 
+
         [Test]      // should not be able to add pods with same name
         public void TestAddDuplicatePod()
         {
@@ -165,6 +166,7 @@ namespace PodSquadTests
             }
         }
 
+
         [Test]
         public void TestGetPodByID()
         {
@@ -173,7 +175,7 @@ namespace PodSquadTests
             controller.AddPod(pod2);
 
             // retrieve podcast from repo using id
-            Podcast pod = fakeRepo.Podcasts.First(p => p.PodcastID == pod1.PodcastID);
+            Podcast pod = fakeRepo.GetPodByID(pod1.PodcastID);
 
             // check values
             Assert.IsNotNull(pod);
@@ -183,6 +185,7 @@ namespace PodSquadTests
             Assert.AreEqual(pod1.HostName, pod.HostName);
             Assert.AreEqual(pod1.Description, pod.Description);
         }
+
 
         [Test]
         public void TestGetPodByName()
@@ -202,6 +205,7 @@ namespace PodSquadTests
             Assert.AreEqual(pod1.HostName, pod.HostName);
             Assert.AreEqual(pod1.Description, pod.Description);
         }
+
 
         [Test]
         public void TestAddReview()
@@ -227,11 +231,6 @@ namespace PodSquadTests
             Assert.IsTrue(updatedPod.Reviews.Count == 1);
             Assert.AreEqual(reviewVM.Rating, updatedPod.Reviews[0].Rating);
             Assert.AreEqual(reviewVM.ReviewText, updatedPod.Reviews[0].ReviewText);
-
-
-
-
-
         }
 
         #endregion
@@ -262,6 +261,7 @@ namespace PodSquadTests
             Assert.AreEqual(pod1.Genre.Name, pod.Genre.Name);
         }
 
+        /*
         [Test]      // should not add duplicate rows
         public void TestAddDuplicateGenre()
         {
@@ -279,6 +279,7 @@ namespace PodSquadTests
             Assert.AreEqual("Genre 1", genres[0].Name);
             Assert.AreEqual("Genre 2", genres[1].Name);
         }
+        */
 
         [Test]
         public void TestGetPodsByGenre()
