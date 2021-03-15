@@ -25,15 +25,6 @@ namespace PodSquad.Repositories
         Task<string> GetAccessToken();
         Task<Podcast> GetSpotifyPodcast(string token, string name);
 
-
-
-
-
-        // genre methods
-        //IQueryable<Genre> Genres { get; }
-        //void AddGenre(Genre genre);
-        //List<Podcast> GetPodsByGenre(int id);
-
         // review methods
         IQueryable<Review> Reviews { get; }
         void AddReview(Review review);

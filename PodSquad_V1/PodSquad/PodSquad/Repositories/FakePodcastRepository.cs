@@ -83,48 +83,6 @@ namespace PodSquad.Repositories
 
 
 
-
-
-        /*
-        #region GENRE METHODS
-
-        public IQueryable<Genre> Genres
-        {
-            get
-            {
-                return genres.AsQueryable<Genre>();
-            }
-        }
-
-        public void AddGenre(Genre genre)
-        {
-            Genre existingGenre = genres.Find(g => g.Name == genre.Name);
-
-            if (existingGenre == null)
-            {
-                // simulate auto-incremented primary key and add genre to list
-                genre.GenreID = genres.Count;
-                genres.Add(genre);
-            }
-            else
-            {
-                Console.WriteLine("Genre already exists");
-                genre.GenreID = existingGenre.GenreID;
-            }
-        }
-
-        // retrieve all podcasts with specified genre name
-        public List<Podcast> GetPodsByGenre(int id)
-        {
-            List<Podcast> pods = podcasts.Where(p => p.Genre.GenreID == id).ToList();
-            return pods;
-        }
-
-        #endregion
-        */
-
-
-
         #region REVIEW METHODS
 
         public IQueryable<Review> Reviews
