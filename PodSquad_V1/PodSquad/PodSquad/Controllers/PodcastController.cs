@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Mvc;
 using PodSquad.Models;
 using PodSquad.Repositories;
 
+
+// TODO: check if model states are valid
+
 namespace PodSquad.Controllers
 {
     public class PodcastController : Controller
@@ -28,33 +31,6 @@ namespace PodSquad.Controllers
 
             return View(podcast);
         }
-
-
-
-        [Authorize(Roles = "Member, Admin")]
-        [HttpGet]
-        public IActionResult AddPod()
-        {
-            return View();
-        }
-
-        [Authorize(Roles = "Member, Admin")]
-        // TODO: make this async?
-        [HttpPost]
-        public IActionResult AddPod(Podcast podcast)
-        {
-            // TODO: this is where to call spotify api
-
-
-            // add pod's genre to db and assign it to podcast
-            repo.AddGenre(podcast.Genre);
-
-            // add pod to db
-            repo.AddPod(podcast);
-
-            return View(podcast);
-        }
-
 
         [Authorize(Roles = "Member, Admin")]
         [HttpGet]
@@ -82,8 +58,7 @@ namespace PodSquad.Controllers
                 // create Review object and assign values out of reviewVM
                 Review review = new Review();
 
-                // TODO: uncomment reviewer
-                //review.Reviewer = userManager.GetUserAsync(User).Result;
+                review.Reviewer = userManager.GetUserAsync(User).Result;
                 review.Date = DateTime.Now;
 
                 // TODO: store rating properly
@@ -116,6 +91,92 @@ namespace PodSquad.Controllers
         public RedirectToActionResult Browse(int podcastID)
         {
             return RedirectToAction("About");
+        }
+
+
+
+
+        // SPOTIFY METHODS
+
+
+
+
+
+        // takes podcast name input from user
+        [Authorize(Roles = "Member, Admin")]
+        [HttpGet]
+        public IActionResult Search()
+        {
+            // create shell podcastVM and send to view
+            PodcastVM podcastVM = new PodcastVM();
+
+            // set success property to true
+            podcastVM.Success = true;
+
+            return View(podcastVM);
+        }
+
+
+        [HttpPost]
+        public IActionResult Search(PodcastVM podcastVM)
+        {
+            string name = podcastVM.SearchQuery;
+
+            // get spotify token
+            string token = repo.GetAccessToken().Result;
+
+            // send query to spotify and redirect results to confirm
+            //Task<Podcast> podcast = repo.GetSpotifyPodcast(token, name);
+            Podcast podcast = repo.GetSpotifyPodcast(token, name).Result;
+
+            if (podcast != null)
+            {
+                // assign podcast result to podcastVM
+                podcastVM.Podcast = new Podcast
+                {
+                    SpotifyID = podcast.SpotifyID,
+                    Name = podcast.Name,
+                    Network = podcast.Network,
+                    Description = podcast.Description,
+                    ImageURL = podcast.ImageURL,
+                    SpotifyURL = podcast.SpotifyURL
+                };
+
+                // set success to true
+                podcastVM.Success = true;
+            }
+            else
+            {
+                // if search didn't return any results, set success to false
+                podcastVM.Success = false;
+            }
+
+            return View(podcastVM);
+        }
+
+
+        [Authorize(Roles = "Member, Admin")]
+        [HttpPost]
+        public IActionResult AddPod(Podcast podcast)
+        {
+            // see if podcast is already in db
+            Podcast p = repo.GetPodBySpotifyID(podcast.SpotifyID);
+            int id;
+
+            // if podcast already exists return about view with its id
+            if (p != null)
+            {
+                id = p.PodcastID;
+            }
+            // otherwise save to db and return about view with new id
+            else
+            {
+                repo.AddPod(podcast);
+                id = podcast.PodcastID;
+            }
+
+            // redirect to about page
+            return RedirectToAction("About", new { podcastID = id });
         }
     }
 }

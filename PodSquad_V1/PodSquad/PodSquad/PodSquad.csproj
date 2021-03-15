@@ -17,6 +17,7 @@
     </PackageReference>
     <PackageReference Include="FluentSpotifyApi.Core" Version="2.0.0" />
     <PackageReference Include="FluentSpotifyApi" Version="2.0.0" />
+    <PackageReference Include="FluentSpotifyApi.AuthorizationFlows" Version="2.0.0" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Account\" />

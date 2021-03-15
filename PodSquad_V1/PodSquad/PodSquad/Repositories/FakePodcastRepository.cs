@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using PodSquad.Models;
 
 namespace PodSquad.Repositories
@@ -84,7 +85,7 @@ namespace PodSquad.Repositories
 
 
 
-
+        /*
         #region GENRE METHODS
 
         public IQueryable<Genre> Genres
@@ -120,7 +121,7 @@ namespace PodSquad.Repositories
         }
 
         #endregion
-
+        */
 
 
 
@@ -138,6 +139,26 @@ namespace PodSquad.Repositories
         public void AddReview(Review review)
         {
             reviews.Add(review);
+        }
+
+        public Task<List<Podcast>> SearchSpotify(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<string> GetAccessToken()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Podcast> GetSpotifyPodcast(string token, string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Podcast GetPodBySpotifyID(string spotifyID)
+        {
+            throw new NotImplementedException();
         }
 
         //public List<Review> GetReviews(int podcastID)

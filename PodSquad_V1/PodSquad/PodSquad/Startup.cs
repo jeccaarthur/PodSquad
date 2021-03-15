@@ -17,6 +17,8 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 using FluentSpotifyApi;
 using FluentSpotifyApi.DependencyInjection;
+using FluentSpotifyApi.AuthorizationFlows.ClientCredentials;
+using FluentSpotifyApi.AuthorizationFlows.ClientCredentials.DependencyInjection;
 
 namespace PodSquad
 {
@@ -52,8 +54,10 @@ namespace PodSquad
             services.AddTransient<IPodcastRepository, PodcastRepository>();
             services.AddTransient<IForumRepository, ForumRepository>();
 
-            // spotify service
+            // spotify services
             services.AddFluentSpotifyClient();
+            services.Configure<SpotifyClientCredentialsFlowOptions>(Configuration.GetSection("SpotifyClientCredentialsFlow"));
+            services.AddFluentSpotifyClient().ConfigureHttpClientBuilder(b => b.AddSpotifyClientCredentialsFlow());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

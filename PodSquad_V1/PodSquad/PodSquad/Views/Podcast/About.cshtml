@@ -4,7 +4,7 @@
     ViewData["Title"] = "About";
 }
 
-<h1 class="display-4">@Model.Name</h1>
+<h1 class="display-4">About @Model.Name</h1>
 
 <div class="pod-container">
     <div class="pod-content">
@@ -25,16 +25,14 @@
                 <div class="pod-info-container">
                     <div class="pod-info">
 
-                        @*<div>PODCAST NAME</div>*@
-                        <div>Host(s): @Model.HostName</div>
-                        <div>Network: @Model.Network</div>
-                        <div>Genre: @Model.Genre.Name</div>
-                        <div>Description: @Model.Description</div>
+                        <h4>@Model.Name</h4>
+                        <h5 class="network">Network: @Model.Network</h5>
+                        <div class="mt-4">@Model.Description</div>
 
                         @* podcast action buttons *@
                         @* TODO: add tag helpers *@
                         <div class="pod-buttons">
-                            <a class="pod-button btn btn-light">Add to My Queue</a>
+                            <a class="pod-button btn btn-light" href="@Model.SpotifyURL">Open in Spotify</a>
                             <a class="pod-button btn btn-light" asp-action="Review" asp-route-podcastID="@Model.PodcastID">Add a Review</a>
                         </div>
 

@@ -1,0 +1,113 @@
+﻿@model PodcastVM
+
+@{
+    ViewData["Title"] = "Search Podcasts";
+}
+
+
+@if (Model.Podcast == null)
+{
+    <h1 class="display-4">Search for a Podcast</h1>
+
+
+    <div class="form-container">
+        <div class="form-content">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+            <form method="post" asp-action="Search">
+
+                <div class="form-group row">
+                    <label asp-validation-for="SearchQuery">
+                        Podcast Name: &nbsp;&nbsp;
+                        <span asp-validation-for="SearchQuery" class="text-danger"></span>
+                    </label>
+                    <input id="review" asp-for="SearchQuery" class="form-control" placeholder="Podcast name" />
+                </div>
+
+
+                <button type="submit" class="mt-3 btn btn-light">Search</button>
+
+            </form>
+        </div>
+    </div>
+
+    @if (Model.Success == false)
+    {
+        <p>
+            Sorry, your search didn't return any results. Check your spelling and try again.
+        </p>
+    }
+}
+
+@if (Model.Podcast != null)
+{
+
+    <h1 class="display-4">
+        Review Podcast
+    </h1>
+
+
+    <div class="pod-container">
+        <div class="pod-content">
+
+            <div class="row">
+
+                @* pod art *@
+                <div class="col">
+                    <div class="pod-art-container">
+                        <div class="pod-art-content">
+                            <img class="pod-art" src="@Model.Podcast.ImageURL" height="325" />
+                        </div>
+                    </div>
+                </div>
+
+                @* display pod info: name, network, description *@
+                <div class="col">
+                    <div class="pod-info-container">
+                        <div class="pod-info">
+
+                            <h4>@Model.Podcast.Name</h4>
+                            <h5 class="network">Network: @Model.Podcast.Network</h5>
+                            <div class="mt-4">@Model.Podcast.Description</div>
+                            <div class="text-center"><a href="@Model.Podcast.SpotifyURL" class="open-button btn btn-light">Open in Spotify</a></div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+            <div class="confirm-pod-container text-center mt-4">
+                <div class="confirm-pod">
+
+                    <form method="post" asp-action="AddPod">
+
+                        @* hide post input so it's stored in model but not shown to the user *@
+                        <div class="form-group hidden">
+                            <input type="hidden" asp-for="Podcast.SpotifyID" value="@Model.Podcast.SpotifyID" />
+                            <input type="hidden" asp-for="Podcast.Name" value="@Model.Podcast.Name" />
+                            <input type="hidden" asp-for="Podcast.Network" value="@Model.Podcast.Network" />
+                            <input type="hidden" asp-for="Podcast.Description" value="@Model.Podcast.Description" />
+                            <input type="hidden" asp-for="Podcast.ImageURL" value="@Model.Podcast.ImageURL" />
+                            <input type="hidden" asp-for="Podcast.SpotifyURL" value="@Model.Podcast.SpotifyURL" />
+                        </div>
+
+
+                        <h3 class="text-center">Is this the podast you're looking for?</h3>
+
+                        <div class="confirm-buttons row">
+                            <div><button type="submit" class="mt-3 btn btn-light">Yes, Recommend this Podcast</button></div>
+                            <div><a asp-action="Search" class="mt-3 btn btn-light">Try Another Search</a></div>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+}
