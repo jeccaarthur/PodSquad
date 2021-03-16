@@ -9,8 +9,6 @@ namespace PodSquad.Models
 {
     public class Review
     {
-        // TODO: add validation to fields
-
         public int ReviewID { get; set; }
         public AppUser Reviewer { get; set; }
         public DateTime Date { get; set; }

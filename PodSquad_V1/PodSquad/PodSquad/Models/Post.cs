@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PodSquad.Models
 {
     public class Post
     {
-        // TODO: add validation to fields
-
         private List<Reply> replies = new List<Reply>();
 
         public int PostID { get; set; }
@@ -20,6 +19,8 @@ namespace PodSquad.Models
         public string Body { get; set; }
 
         public DateTime Date { get; set; }
+
+        [ForeignKey("PosterId")]
         public AppUser Poster { get; set; }
         public List<Reply> Replies { get { return replies; } }
     }

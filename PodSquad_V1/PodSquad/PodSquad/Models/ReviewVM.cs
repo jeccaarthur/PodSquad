@@ -5,8 +5,6 @@ namespace PodSquad.Models
 {
     public class ReviewVM
     {
-        // TODO: add validation to fields
-
         public int PodcastID { get; set; }
         public string PodcastName { get; set; }
 
