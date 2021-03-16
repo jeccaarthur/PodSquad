@@ -24,15 +24,18 @@
                                 @* name *@
                                 <div class="pod-name">@p.Name</div>
 
-                                @* loop through rating and display stars for average rating *@
-                                <div class="avg-rating">
-                                    PodSquad Rating: &nbsp;
-                                    @for (int i = 1; i <= p.AvgRating; i++)
-                                    {
-                                        <span class="glyphicon glyphicon-star"></span>
-                                    }
+                                @if (p.AvgRating > 0)
+                                {
+                                    @* loop through rating and display stars for average rating *@
+                                    <div class="avg-rating">
+                                        PodSquad Rating: &nbsp;
+                                        @for (int i = 1; i <= p.AvgRating; i++)
+                                        {
+                                            <span class="glyphicon glyphicon-star"></span>
+                                        }
 
-                                </div>
+                                    </div>
+                                }
 
 
                             </div>

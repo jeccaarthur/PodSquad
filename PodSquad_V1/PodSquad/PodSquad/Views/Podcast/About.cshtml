@@ -28,13 +28,16 @@
                         <h4>@Model.Name</h4>
                         <h5 class="network">Network: @Model.Network</h5>
 
-                        <div class="avg-rating">
-                            PodSquad Rating: &nbsp;
-                            @for (int i = 1; i <= Model.AvgRating; i++)
-                            {
-                                <span class="glyphicon glyphicon-star"></span>
-                            }
-                        </div>
+                        @if (Model.AvgRating > 0)
+                        {
+                            <div class="avg-rating">
+                                PodSquad Rating: &nbsp;
+                                @for (int i = 1; i <= Model.AvgRating; i++)
+                                {
+                                    <span class="glyphicon glyphicon-star"></span>
+                                }
+                            </div>
+                        }
 
                         <div class="mt-4">@Model.Description</div>
 
@@ -81,4 +84,4 @@
         }
 
     </div>
-    </div>
+</div>
