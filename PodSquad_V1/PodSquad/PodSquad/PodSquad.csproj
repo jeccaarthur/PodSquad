@@ -24,6 +24,7 @@
     <Folder Include="Views\Podcast\" />
     <Folder Include="Views\Forum\" />
     <Folder Include="Repositories\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="PodSquad.db-shm" />
