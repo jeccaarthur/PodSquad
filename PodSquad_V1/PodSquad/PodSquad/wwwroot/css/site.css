@@ -280,7 +280,7 @@ form button {
 }
 
     .pod-content {
-        padding: 20px;
+        padding: 30px;
     }
 
         .pod-art-container {
@@ -309,7 +309,7 @@ form button {
 
             .pod-info {
                 position: relative;
-                padding: 10px;
+                padding-right: 30px;
             }
 
                 .pod-buttons {
@@ -383,8 +383,10 @@ form button {
     }
 
         .pod-name {
-            font-size: larger;
+            font-size: medium;
             font-weight: 600;
+            max-width: 275px;
+            margin: auto;
         }
 
 
@@ -530,4 +532,44 @@ form button {
 .reply-form-container {
     width: 93%;
     margin: auto;
+}
+
+
+
+/* ----------- SEARCH / ADD ----------- */
+
+.network {
+    color: #b3d3d4;
+}
+
+.open-button {
+    color: #0e3e4c !important;
+    margin-top: 30px;
+    position: relative;
+}
+
+.confirm-pod-container {
+    margin-top: 20px;
+    padding: 30px;
+    text-align: center;
+    width: 100%;
+    margin: 0 auto;
+    border-radius: 4px;
+    background-color: rgba(119, 255, 173, 0.1);
+    -webkit-box-shadow: -1px 1px 15px 2px rgba(0,0,0,0.51);
+    box-shadow: -1px 1px 15px 2px rgba(0,0,0,0.51);
+}
+
+.confirm-pod {
+    text-align: center;
+}
+
+.confirm-buttons {
+    display: flex;
+    justify-content: space-evenly;
+    width: 80%;
+    text-align: center;
+    color: #0e3e4c !important;
+    margin: auto;
+    position: relative;
 }
