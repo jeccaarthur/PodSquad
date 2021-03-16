@@ -9,7 +9,6 @@ namespace PodSquad.Repositories
     public class FakePodcastRepository : IPodcastRepository
     {
         private List<Podcast> podcasts = new List<Podcast>();
-        private List<Genre> genres = new List<Genre>();
         private List<Review> reviews = new List<Review>();
 
 
