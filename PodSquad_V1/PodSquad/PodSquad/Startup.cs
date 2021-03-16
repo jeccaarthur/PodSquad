@@ -94,8 +94,9 @@ namespace PodSquad
             var serviceProvider = app.ApplicationServices;
             var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
             var userManager = serviceProvider.GetRequiredService<UserManager<AppUser>>();
+            var repo = serviceProvider.GetRequiredService<IPodcastRepository>();
 
-            SeedData.Seed(context, roleManager, userManager);
+            SeedData.Seed(context, roleManager, userManager, repo);
         }
     }
 }
