@@ -51,10 +51,11 @@ namespace PodSquad.Repositories
         // retrieve post with matching id
         public Post GetPostByID(int id)
         {
-            Post post = context.Posts.Where(p => p.PostID == id)
+            Post post = context.Posts
                 .Include(p => p.Poster)
                 .Include(p => p.Replies)
-                .ThenInclude(r => r.Responder).FirstOrDefault();
+                .ThenInclude(r => r.Responder)
+                .Where(p => p.PostID == id).FirstOrDefault();
 
             return post;
         }

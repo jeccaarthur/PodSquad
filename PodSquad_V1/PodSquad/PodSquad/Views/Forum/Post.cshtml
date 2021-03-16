@@ -1,0 +1,37 @@
+﻿@model Post 
+
+@{
+    ViewData["Title"] = "Create a Post";
+}
+
+<h1 class="display-4">Submit a Post</h1>
+
+
+<div class="form-container">
+    <div class="form-content">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <form method="post" asp-action="Post">
+
+            <div class="form-group row">
+                <label asp-validation-for="Title">
+                    Title: &nbsp;&nbsp;
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </label>
+                <input id="ID" asp-for="Title" class="form-control" placeholder="Post Title" />
+            </div>
+
+            <div class="form-group row">
+                <label asp-validation-for="Body">
+                    Body: &nbsp;&nbsp;
+                    <span asp-validation-for="Body" class="text-danger"></span>
+                </label>
+                <textarea rows="8" id="review" asp-for="Body" class="form-control" placeholder="Write your post here..."></textarea>
+            </div>
+
+            <br />
+            <button type="submit" class="btn btn-light">Create Post</button>
+
+        </form>
+    </div>
+</div>

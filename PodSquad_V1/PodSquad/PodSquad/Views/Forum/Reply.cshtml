@@ -1,0 +1,68 @@
+﻿@model ReplyVM
+
+@{
+    ViewData["Title"] = "Submit a Reply";
+}
+
+
+<h1 class="display-4">Reply to @Model.Post.Poster.UserName's Post</h1>
+
+
+
+<div class="thread-container">
+    <div class="thread-content">
+
+        @* post user is responding to*@
+        <div class="post-container">
+            <div class="post-content">
+
+                <div class="thread-text">
+                    <h4>@Model.Post.Title</h4>
+                    <div>@Model.Post.Body</div>
+                </div>
+
+                <div class="thread-info">
+                    <div>Posted by @Model.Post.Poster.UserName on @Model.Post.Date</div>
+                </div>
+            </div>
+        </div>
+
+        @* reply input *@
+        <div class="thread-replies">
+
+            <div class="reply-container">
+
+                <div class="reply-form-container">
+                    <div class="form-content">
+
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <form method="post" asp-action="Reply">
+                            @* hide post input so it's stored in model but not shown to the user *@
+                            <div class="form-group hidden">
+                                <input type="hidden" asp-for="Post.PostID" value="@Model.Post.PostID" />
+                                <input type="hidden" asp-for="Post.Title" value="@Model.Post.Title" />
+                                <input type="hidden" asp-for="Post.Body" value="@Model.Post.Body" />
+                                <input type="hidden" asp-for="Post.Date" value="@Model.Post.Date" />
+                                <input type="hidden" asp-for="Post.Poster" value="@Model.Post.Poster" />
+                                <input type="hidden" asp-for="Post.Replies" value="@Model.Post.Replies" />
+                            </div>
+
+
+                            <div class="form-group row">
+                                <label asp-validation-for="ReplyText">
+                                    Your Reply: &nbsp;&nbsp;
+                                    <span asp-validation-for="ReplyText" class="text-danger"></span>
+                                </label>
+                                <textarea rows="5" id="review" class="form-control" placeholder="Write your reply here..." name="ReplyText"></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-light">Add Reply</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -76,9 +76,7 @@ namespace PodSquad.Controllers
             {
                 // create reply object and assign values out of replyVM
                 Reply reply = new Reply();
-
-                // TODO: uncomment responder
-                //reply.Responder = userManager.GetUserAsync(User).Result;
+                reply.Responder = userManager.GetUserAsync(User).Result;
                 reply.Date = DateTime.Now;
                 reply.ReplyText = replyVM.ReplyText;
 

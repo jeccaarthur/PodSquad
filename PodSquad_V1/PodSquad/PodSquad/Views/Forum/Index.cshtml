@@ -4,6 +4,10 @@
     ViewData["Title"] = "Forum";
 }
 
+
+@* create post button *@
+<div class="create-post"><a asp-action="Post" class="btn btn-light">Create a Post</a></div>
+
 <div class="post-list-container">
     <div class="post-list">
 
@@ -11,23 +15,28 @@
         @foreach (Post p in Model)
         {
             @* individual post *@
-            <div class="post-container">
-                <div class="post-content">
+            <a asp-action="Thread" asp-route-postID="@p.PostID">
 
-                    <div class="post-left row">
-                        <div class="col"><h4>Model.Title</h4></div>
-                        <div class="col right"><div>Model.Poster.FirstName</div></div>
+                <div class="post-container-base">
+                    <div class="post-container">
+                        <div class="post-content">
+
+                            <div class="post-left row">
+                                <div class="col"><h4>@p.Title</h4></div>
+                                <div class="col right"><div>@p.Poster.UserName</div></div>
+                            </div>
+
+
+                            <div class="post-right row">
+                                <div class="col"><div>@p.Replies.Count Replies</div></div>
+                                <div class="col right"><div>@p.Date</div></div>
+                            </div>
+
+                        </div>
                     </div>
-
-
-                    <div class="post-right row">
-                        <div class="col"><div>Num Comments</div></div>
-                        <div class="col right"><div>Model.Date</div></div>
-                    </div>
-
-
                 </div>
-            </div>
+
+            </a>
 
             <div class="separator"></div>
         }

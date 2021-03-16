@@ -27,11 +27,10 @@
                 </div>
 
                 <div class="thread-info">
-                    <div>Posted by @Model.Poster.FirstName on @Model.Date</div>
+                    <div>Posted by @Model.Poster.UserName on @Model.Date</div>
                 </div>
                 <div class="reply-button">
-                    @*<a class="btn btn-light" asp-action="Reply" asp-route-postID="@Model.PostID">Reply</a>*@
-                    <a class="btn btn-light" asp-action="Reply">Reply</a>
+                    <a class="btn btn-light" asp-action="Reply" asp-route-postID="@Model.PostID">Reply</a>
                 </div>
 
             </div>
@@ -48,7 +47,7 @@
                 <div class="reply-container">
                     <div class="reply-content">
 
-                        <div class="reply-header">r.Responder.FirstName responded:</div>
+                        <div class="reply-header">@r.Responder responded:</div>
                         <div>@r.ReplyText</div>
                         <div class="thread-info">@r.Date</div>
 
