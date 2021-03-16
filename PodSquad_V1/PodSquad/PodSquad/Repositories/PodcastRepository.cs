@@ -144,7 +144,7 @@ namespace PodSquad.Repositories
         // retrieve all podcasts
         public List<Podcast> GetAllPods()
         {
-            List<Podcast> podcasts = context.Podcasts
+            List<Podcast> podcasts = context.Podcasts.OrderBy(pod => pod.Name)
                 .Include(pod => pod.Reviews)
                 .ThenInclude(review => review.Reviewer)
                 .ToList();
@@ -185,6 +185,31 @@ namespace PodSquad.Repositories
             context.Podcasts.Update(podcast);
             context.SaveChanges();
         }
+
+
+        // calculate average rating
+        public int CalculateAvgRating(Podcast podcast)
+        {
+            int numReviews = 0;
+            int totalStars = 0;
+            int average = 0;
+
+            if (podcast.Reviews.Count > 0)
+            {
+                foreach (Review r in Reviews)
+                {
+                    // add ratings and count the number of reviews
+                    totalStars += r.Rating;
+                    numReviews++;
+                }
+
+                // calculate average
+                average = totalStars / numReviews;
+            }
+
+            return average;
+        }
+
 
         #endregion
 
