@@ -11,13 +11,15 @@ namespace PodSquad.Models
     {
         // TODO: add validation to fields
 
-        //private List<Comment> comments = new List<Comment>();
-
         public int ReviewID { get; set; }
         public AppUser Reviewer { get; set; }
         public DateTime Date { get; set; }
+
+        [Range(1, 5)]
         public int Rating { get; set; }
+
+        [Required]
+        [StringLength(350)]
         public string ReviewText { get; set; }
-        //public List<Comment> Comments { get { return comments; } }
     }
 }

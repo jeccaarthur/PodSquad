@@ -20,5 +20,8 @@ namespace PodSquad.Models
 
         [NotMapped]
         public IList<String> RoleNames { get; set; }
+
+
+        // TODO: add PodQueue property to store list of saved podcasts
     }
 }
