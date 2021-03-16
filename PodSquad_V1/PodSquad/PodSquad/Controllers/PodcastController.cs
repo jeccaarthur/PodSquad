@@ -111,39 +111,42 @@ namespace PodSquad.Controllers
             return View(podcastVM);
         }
 
-
+        // searches spotify for podcast
         [HttpPost]
         public IActionResult Search(PodcastVM podcastVM)
         {
-            string name = podcastVM.SearchQuery;
-
-            // get spotify token
-            string token = repo.GetAccessToken().Result;
-
-            // send query to spotify and redirect results to confirm
-            //Task<Podcast> podcast = repo.GetSpotifyPodcast(token, name);
-            Podcast podcast = repo.GetSpotifyPodcast(token, name).Result;
-
-            if (podcast != null)
+            if (ModelState.IsValid)
             {
-                // assign podcast result to podcastVM
-                podcastVM.Podcast = new Podcast
+                string name = podcastVM.SearchQuery;
+
+                // get spotify token
+                string token = repo.GetAccessToken().Result;
+
+                // send query to spotify and redirect results to confirm
+                //Task<Podcast> podcast = repo.GetSpotifyPodcast(token, name);
+                Podcast podcast = repo.GetSpotifyPodcast(token, name).Result;
+
+                if (podcast != null)
                 {
-                    SpotifyID = podcast.SpotifyID,
-                    Name = podcast.Name,
-                    Network = podcast.Network,
-                    Description = podcast.Description,
-                    ImageURL = podcast.ImageURL,
-                    SpotifyURL = podcast.SpotifyURL
-                };
+                    // assign podcast result to podcastVM
+                    podcastVM.Podcast = new Podcast
+                    {
+                        SpotifyID = podcast.SpotifyID,
+                        Name = podcast.Name,
+                        Network = podcast.Network,
+                        Description = podcast.Description,
+                        ImageURL = podcast.ImageURL,
+                        SpotifyURL = podcast.SpotifyURL
+                    };
 
-                // set success to true
-                podcastVM.Success = true;
-            }
-            else
-            {
-                // if search didn't return any results, set success to false
-                podcastVM.Success = false;
+                    // set success to true
+                    podcastVM.Success = true;
+                }
+                else
+                {
+                    // if search didn't return any results, set success to false
+                    podcastVM.Success = false;
+                }
             }
 
             return View(podcastVM);
@@ -154,24 +157,31 @@ namespace PodSquad.Controllers
         [HttpPost]
         public IActionResult AddPod(Podcast podcast)
         {
-            // see if podcast is already in db
-            Podcast p = repo.GetPodBySpotifyID(podcast.SpotifyID);
-            int id;
-
-            // if podcast already exists return about view with its id
-            if (p != null)
+            if (ModelState.IsValid)
             {
-                id = p.PodcastID;
+                // see if podcast is already in db
+                Podcast p = repo.GetPodBySpotifyID(podcast.SpotifyID);
+                int id;
+
+                // if podcast already exists return about view with its id
+                if (p != null)
+                {
+                    id = p.PodcastID;
+                }
+                // otherwise save to db and return about view with new id
+                else
+                {
+                    repo.AddPod(podcast);
+                    id = podcast.PodcastID;
+                }
+
+                // redirect to about page
+                return RedirectToAction("About", new { podcastID = id });
             }
-            // otherwise save to db and return about view with new id
             else
             {
-                repo.AddPod(podcast);
-                id = podcast.PodcastID;
+                return RedirectToAction("Error", "Home");
             }
-
-            // redirect to about page
-            return RedirectToAction("About", new { podcastID = id });
         }
     }
 }
