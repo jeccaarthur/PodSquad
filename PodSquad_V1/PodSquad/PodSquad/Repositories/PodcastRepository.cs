@@ -97,7 +97,7 @@ namespace PodSquad.Repositories
 
                             if (data != null)
                             {
-                                // TODO: get podcast spotify url too - external_urls:spotify:{url}
+                                // pull model values out of response
                                 podcast.SpotifyID = data.shows.items[0].id;
                                 podcast.Name = data.shows.items[0].name;
                                 podcast.Network = data.shows.items[0].publisher;
