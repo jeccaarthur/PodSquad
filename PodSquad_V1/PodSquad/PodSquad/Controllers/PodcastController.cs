@@ -8,9 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 using PodSquad.Models;
 using PodSquad.Repositories;
 
-
-// TODO: check if model states are valid
-
 namespace PodSquad.Controllers
 {
     public class PodcastController : Controller
@@ -60,8 +57,6 @@ namespace PodSquad.Controllers
 
                 review.Reviewer = userManager.GetUserAsync(User).Result;
                 review.Date = DateTime.Now;
-
-                // TODO: store rating properly
                 review.Rating = reviewVM.Rating;
                 review.ReviewText = reviewVM.ReviewText;
 

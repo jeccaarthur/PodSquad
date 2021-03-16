@@ -39,14 +39,17 @@ namespace PodSquad.Controllers
         [HttpPost]
         public RedirectToActionResult Post(Post post)
         {
-            // assign user to post
-            post.Poster = userManager.GetUserAsync(User).Result;
+            if (ModelState.IsValid)
+            {
+                // assign user to post
+                post.Poster = userManager.GetUserAsync(User).Result;
 
-            // set date
-            post.Date = DateTime.Now;
+                // set date
+                post.Date = DateTime.Now;
 
-            // save post to db
-            repo.AddPost(post);
+                // save post to db
+                repo.AddPost(post);
+            }
 
             // store current postID for easy access to send back to About page
             int id = post.PostID;
