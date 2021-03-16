@@ -5,12 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
+using PodSquad.Repositories;
 
 namespace PodSquad.Models
 {
     public class SeedData
     {
-        public static void Seed(PodContext context, RoleManager<IdentityRole> roleManager, UserManager<AppUser> userManager)
+        public static void Seed(PodContext context, RoleManager<IdentityRole> roleManager, UserManager<AppUser> userManager, IPodcastRepository repo)
         {
             // TODO: update seeded data to reflect updated podcast properties
             // (removed genre and hostname)
@@ -25,7 +26,7 @@ namespace PodSquad.Models
                 // seed a default administrator
                 AppUser siteadmin = new AppUser
                 {
-                    UserName = "SiteAdmin",
+                    UserName = "siteadmin",
                     FirstName = "Site",
                     LastName = "Admin"
                 };
@@ -34,78 +35,36 @@ namespace PodSquad.Models
                 IdentityRole adminRole = roleManager.FindByNameAsync("Admin").Result;
                 userManager.AddToRoleAsync(siteadmin, adminRole.Name);
 
-                // save changes to db
-                context.SaveChanges();
-
-                // save changes to db
-                context.SaveChanges();
-
-
-                // seed fake podcasts to test formatting
-                var pod1 = new Podcast
+                // seed first forum post
+                var firstPost = new Post
                 {
-                    Name = "Podcast 1",
-                    Network = "Network",
-                    Description = "This is a podcast description. I hope you enjoy.",
-                };
-                context.Podcasts.Add(pod1);
-
-                var pod2 = new Podcast
-                {
-                    Name = "Podcast 2",
-                    Network = "Network",
-                    Description = "This is a podcast description. I hope you enjoy.",
-                };
-                context.Podcasts.Add(pod2);
-
-                var pod3 = new Podcast
-                {
-                    Name = "Podcast 3",
-                    Network = "Network",
-                    Description = "This is a podcast description. I hope you enjoy.",
-                };
-                context.Podcasts.Add(pod3);
-
-                var pod4 = new Podcast
-                {
-                    Name = "Podcast 4",
-                    Network = "Network",
-                    Description = "This is a podcast description. I hope you enjoy.",
-                };
-                context.Podcasts.Add(pod4);
-
-                var pod5 = new Podcast
-                {
-                    Name = "Podcast 5",
-                    Network = "Network",
-                    Description = "This is a podcast description. I hope you enjoy.",
-                };
-                context.Podcasts.Add(pod5);
-
-                // save changes to db
-                context.SaveChanges();
-
-
-                // seed fake posts to test formatting
-                var post1 = new Post
-                {
-                    Title = "First post",
-                    Body = "This is the first post in the forum. Enjoy it.",
+                    Title = "Welcome to the PodSquad",
+                    Body = "Hello there! I hope you enjoy your time here finding new podcasts to enjoy and discussing them with fellow squad members. Drop me a line if you run into issues!",
                     Date = DateTime.Now,
-                    Poster = new AppUser { FirstName = "Jecca", LastName = "Arthur" }
+                    Poster = siteadmin
                 };
-                context.Posts.Add(post1);
 
-                var post2 = new Post
-                {
-                    Title = "Second post",
-                    Body = "This is the second post in the forum. Enjoy it.",
-                    Date = DateTime.Now,
-                    Poster = new AppUser { FirstName = "Misha", LastName = "Danger" }
-                };
-                context.Posts.Add(post2);
+                context.Posts.Add(firstPost);
 
-                // save changes to db
+                // seed spotify podcasts
+                string token = repo.GetAccessToken().Result;
+
+                // my favorite murder 
+                Podcast myFavMurder = repo.GetSpotifyPodcast(token, "my favorite murder").Result;
+                context.Podcasts.Add(myFavMurder);
+
+                // higher learning
+                Podcast higherLearning = repo.GetSpotifyPodcast(token, "higher learning").Result;
+                context.Podcasts.Add(higherLearning);
+
+                // your own backyard
+                Podcast yourOwnBackyard = repo.GetSpotifyPodcast(token, "your own backyard").Result;
+                context.Podcasts.Add(yourOwnBackyard);
+
+                // hidden brain
+                Podcast hiddenBrain = repo.GetSpotifyPodcast(token, "hidden brain").Result;
+                context.Podcasts.Add(hiddenBrain);
+
                 context.SaveChanges();
             }
         }
