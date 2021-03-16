@@ -9,8 +9,8 @@ using PodSquad.Models;
 namespace PodSquad.Migrations
 {
     [DbContext(typeof(PodContext))]
-    [Migration("20210316024731_Validation")]
-    partial class Validation
+    [Migration("20210316053908_New")]
+    partial class New
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -248,6 +248,8 @@ namespace PodSquad.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("PodcastID");
+
+                    b.HasAlternateKey("SpotifyID");
 
                     b.ToTable("Podcasts");
                 });

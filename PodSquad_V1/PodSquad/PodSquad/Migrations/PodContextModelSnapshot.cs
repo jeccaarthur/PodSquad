@@ -247,6 +247,8 @@ namespace PodSquad.Migrations
 
                     b.HasKey("PodcastID");
 
+                    b.HasAlternateKey("SpotifyID");
+
                     b.ToTable("Podcasts");
                 });
 

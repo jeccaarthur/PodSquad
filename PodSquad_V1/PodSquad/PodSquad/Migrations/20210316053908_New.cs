@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PodSquad.Migrations
 {
-    public partial class UniqueGenre : Migration
+    public partial class New : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -50,18 +50,23 @@ namespace PodSquad.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Genres",
+                name: "Podcasts",
                 columns: table => new
                 {
-                    GenreID = table.Column<int>(nullable: false)
+                    PodcastID = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    SpotifyID = table.Column<string>(nullable: false),
                     Name = table.Column<string>(nullable: false),
-                    Description = table.Column<string>(nullable: true)
+                    Network = table.Column<string>(nullable: false),
+                    Description = table.Column<string>(nullable: true),
+                    ImageURL = table.Column<string>(nullable: false),
+                    SpotifyURL = table.Column<string>(nullable: true),
+                    AvgRating = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Genres", x => x.GenreID);
-                    table.UniqueConstraint("AK_Genres_Name", x => x.Name);
+                    table.PrimaryKey("PK_Podcasts", x => x.PodcastID);
+                    table.UniqueConstraint("AK_Podcasts_SpotifyID", x => x.SpotifyID);
                 });
 
             migrationBuilder.CreateTable(
@@ -176,8 +181,8 @@ namespace PodSquad.Migrations
                 {
                     PostID = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Title = table.Column<string>(nullable: true),
-                    Body = table.Column<string>(nullable: true),
+                    Title = table.Column<string>(maxLength: 150, nullable: false),
+                    Body = table.Column<string>(nullable: false),
                     Date = table.Column<DateTime>(nullable: false),
                     PosterId = table.Column<string>(nullable: true)
                 },
@@ -193,25 +198,31 @@ namespace PodSquad.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Podcasts",
+                name: "Reviews",
                 columns: table => new
                 {
-                    PodcastID = table.Column<int>(nullable: false)
+                    ReviewID = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(nullable: true),
-                    GenreID = table.Column<int>(nullable: true),
-                    Network = table.Column<string>(nullable: true),
-                    HostName = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true)
+                    ReviewerId = table.Column<string>(nullable: true),
+                    Date = table.Column<DateTime>(nullable: false),
+                    Rating = table.Column<int>(nullable: false),
+                    ReviewText = table.Column<string>(maxLength: 350, nullable: false),
+                    PodcastID = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Podcasts", x => x.PodcastID);
+                    table.PrimaryKey("PK_Reviews", x => x.ReviewID);
                     table.ForeignKey(
-                        name: "FK_Podcasts_Genres_GenreID",
-                        column: x => x.GenreID,
-                        principalTable: "Genres",
-                        principalColumn: "GenreID",
+                        name: "FK_Reviews_Podcasts_PodcastID",
+                        column: x => x.PodcastID,
+                        principalTable: "Podcasts",
+                        principalColumn: "PodcastID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Reviews_AspNetUsers_ReviewerId",
+                        column: x => x.ReviewerId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -223,7 +234,7 @@ namespace PodSquad.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     ResponderId = table.Column<string>(nullable: true),
                     Date = table.Column<DateTime>(nullable: false),
-                    ReplyText = table.Column<string>(nullable: true),
+                    ReplyText = table.Column<string>(nullable: false),
                     PostID = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -238,35 +249,6 @@ namespace PodSquad.Migrations
                     table.ForeignKey(
                         name: "FK_Replies_AspNetUsers_ResponderId",
                         column: x => x.ResponderId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Reviews",
-                columns: table => new
-                {
-                    ReviewID = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    PodcastID = table.Column<int>(nullable: true),
-                    ReviewerId = table.Column<string>(nullable: true),
-                    Date = table.Column<DateTime>(nullable: false),
-                    Rating = table.Column<int>(nullable: false),
-                    ReviewText = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Reviews", x => x.ReviewID);
-                    table.ForeignKey(
-                        name: "FK_Reviews_Podcasts_PodcastID",
-                        column: x => x.PodcastID,
-                        principalTable: "Podcasts",
-                        principalColumn: "PodcastID",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Reviews_AspNetUsers_ReviewerId",
-                        column: x => x.ReviewerId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -308,11 +290,6 @@ namespace PodSquad.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Podcasts_GenreID",
-                table: "Podcasts",
-                column: "GenreID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Posts_PosterId",
@@ -374,9 +351,6 @@ namespace PodSquad.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "Genres");
         }
     }
 }
