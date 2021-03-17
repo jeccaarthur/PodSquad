@@ -599,3 +599,15 @@ form button {
     margin: auto;
     position: relative;
 }
+
+
+
+/* ----------- ADMIN ----------- */
+
+table * {
+    color: white;
+}
+
+table button {
+    width: auto;
+}
