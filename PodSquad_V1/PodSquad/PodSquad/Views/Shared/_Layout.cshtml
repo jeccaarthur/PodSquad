@@ -65,6 +65,12 @@
                             @*<a asp-controller="Podcast" asp-action="Queue"><div>My Queue</div></a>*@
                             <a asp-controller="Podcast" asp-action="Search"><div>Recommend a Pod</div></a>
                             <a asp-controller="Forum" asp-action="Index"><div>Forum</div></a>
+
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a asp-controller="Admin" asp-action="Index"><div>Manage Users</div></a>
+                            }
+
                         </div>
                     </nav>
 
