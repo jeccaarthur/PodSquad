@@ -14,7 +14,8 @@ namespace PodSquad.Models
         public string LastName { get; set; }
 
         [Required(ErrorMessage = "Please enter a username.")]
-        [StringLength(255)]
+        [StringLength(60, MinimumLength = 1)]
+        [RegularExpression(@"^[a-zA-Z0-9_]{1,60}$", ErrorMessage = "Username can contain alphanumeric characters and underscores only")]
         public string Username { get; set; }
 
         [Required(ErrorMessage = "Please enter a password.")]
