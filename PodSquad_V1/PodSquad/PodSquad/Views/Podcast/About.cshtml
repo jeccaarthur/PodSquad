@@ -4,7 +4,14 @@
     ViewData["Title"] = "About";
 }
 
-<h1 class="display-4">About @Model.Name</h1>
+<div class="trail">
+    <a asp-action="Browse">
+        <span class="trail-icon glyphicon glyphicon-menu-left"></span>
+        <span class="trail-name">Back to Browse</span>
+    </a>
+</div>
+
+<h1 class="display-4 text-center">About @Model.Name</h1>
 
 <div class="pod-container">
     <div class="pod-content">

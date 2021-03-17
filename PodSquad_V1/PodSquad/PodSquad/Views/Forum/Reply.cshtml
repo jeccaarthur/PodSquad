@@ -17,12 +17,12 @@
             <div class="post-content">
 
                 <div class="thread-text">
-                    <h4>@Model.Post.Title</h4>
-                    <div>@Model.Post.Body</div>
+                    <h4 class="p-1">@Model.Post.Title</h4>
+                    <div class="p-1">@Model.Post.Body</div>
                 </div>
 
                 <div class="thread-info">
-                    <div>Posted by @Model.Post.Poster.UserName on @Model.Post.Date</div>
+                    <div class="p-1">Posted by @Model.Post.Poster.UserName on @Model.Post.Date.ToShortDateString()</div>
                 </div>
             </div>
         </div>
@@ -50,14 +50,16 @@
 
 
                             <div class="form-group row">
-                                <label asp-validation-for="ReplyText">
+                                <label asp-validation-for="ReplyText" class="p-2">
                                     Your Reply: &nbsp;&nbsp;
                                     <span asp-validation-for="ReplyText" class="text-danger"></span>
                                 </label>
-                                <textarea rows="5" id="review" class="form-control" placeholder="Write your reply here..." name="ReplyText"></textarea>
+                                <textarea rows="5" id="review" class="p-2 form-control" placeholder="Write your reply here..." name="ReplyText"></textarea>
                             </div>
 
-                            <button type="submit" class="btn btn-light">Add Reply</button>
+                            <div class="p-2">
+                                <button type="submit" class="mb-1 btn btn-light">Add Reply</button>
+                            </div>
                         </form>
                     </div>
                 </div>
