@@ -19,6 +19,8 @@ using FluentSpotifyApi;
 using FluentSpotifyApi.DependencyInjection;
 using FluentSpotifyApi.AuthorizationFlows.ClientCredentials;
 using FluentSpotifyApi.AuthorizationFlows.ClientCredentials.DependencyInjection;
+using Microsoft.AspNetCore.CookiePolicy;
+using Microsoft.AspNetCore.Http;
 
 namespace PodSquad
 {
@@ -63,6 +65,14 @@ namespace PodSquad
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, PodContext context)
         {
+            // mitigation: x-frame-options header not set & x-content-type-options header missing
+            app.Use(async (ctx, next) =>
+            {
+                ctx.Response.Headers.Add("X-Frame-Options", "SAMEORIGIN");
+                ctx.Response.Headers.Add("X-Content-Type-Options", "nosniff");
+                await next();
+            });
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -80,6 +90,9 @@ namespace PodSquad
 
             // enable CORS
             app.UseCors();
+
+            // mitigation: cookie without secure flag
+            app.UseCookiePolicy(new CookiePolicyOptions { HttpOnly = HttpOnlyPolicy.Always, Secure = CookieSecurePolicy.Always });
 
             app.UseAuthentication();
             app.UseAuthorization();
