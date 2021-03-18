@@ -78,10 +78,11 @@ namespace PodSquad.Controllers
 
                 // create user and assign member role
                 var result = await userManager.CreateAsync(user, createAccountVM.Password);
-                await userManager.AddToRoleAsync(user, "Member");
+                //await userManager.AddToRoleAsync(user, "Member");
 
                 if (result.Succeeded)
                 {
+                    await userManager.AddToRoleAsync(user, "Member");
                     await signInManager.SignInAsync(user, isPersistent: false);
                     return RedirectToAction("Index", "Home");
                 }
@@ -93,6 +94,8 @@ namespace PodSquad.Controllers
                     }
                 }
             }
+
+            //ModelState.AddModelError("", "Invalid username or password.");
 
             return View(createAccountVM);
         }
