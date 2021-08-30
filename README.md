@@ -1,3 +1,3 @@
 # podsquad
 
-https://podsquad.azurewebsites.net/
+Term project for CS296N, Winter 2021.
